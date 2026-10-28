@@ -122,8 +122,8 @@ tr.we td:first-child{color:var(--bad)}
 [hidden]{display:none!important}
 /* 월간: 사이트 탭과 사이트별 색 */
 #mView{--mc:#4A86E8;--mcs:#e1eefc}
-#mView[data-site="sm"]{--mc:#7a4fd6;--mcs:#efe7fb}
-#mView[data-site="ct"]{--mc:#03a65a;--mcs:#e3f4ea}
+#mView[data-site="sm"]{--mc:#8A6FDB;--mcs:#EFEAFB}
+#mView[data-site="ct"]{--mc:#7BB235;--mcs:#EEF6E3}
 .stabs{display:inline-flex;flex-wrap:wrap;gap:2px;margin-top:4px;background:var(--seg);border-radius:10px;padding:4px;align-self:flex-start}
 .stabs button{display:flex;align-items:center;gap:6px;border:0;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--sub);padding:7px 16px;border-radius:7px;cursor:pointer}
 .stabs button::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--sc)}
@@ -246,8 +246,8 @@ table.mt{min-width:0;table-layout:fixed}
 <main class="wrap" id="mView" hidden>
   <nav class="stabs" aria-label="월간 보고서 사이트">
     <button type="button" data-s="ppt" style="--sc:#4A86E8">예스폼 파워포인트</button>
-    <button type="button" data-s="sm" style="--sc:#7a4fd6">슬라이드멤버스</button>
-    <button type="button" data-s="ct" style="--sc:#03a65a">씨티미디어 <small>스마트스토어 · 크몽</small></button>
+    <button type="button" data-s="sm" style="--sc:#8A6FDB">슬라이드멤버스</button>
+    <button type="button" data-s="ct" style="--sc:#7BB235">씨티미디어 <small>스마트스토어 · 크몽</small></button>
   </nav>
   <div class="mpane" id="mPpt"></div>
   <div class="mpane" id="mSm" hidden></div>
@@ -391,7 +391,7 @@ function startMonthly(MP,MS,MC){
     const W=560,H=210,T=28,Bm=24,L=6,R2=6,gw=(W-L-R2)/12,bw=14,yy=x=>T+(1-x/mx)*(H-T-Bm);
     let g=`<line x1="${L}" x2="${W-R2}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--grid)"/>`;
     vals.forEach((a,k)=>{const x=L+gw*k+gw/2,on=k===+m.slice(5)-1;
-      if(a!=null){g+=`<rect x="${x-bw/2}" y="${yy(a)}" width="${bw}" height="${yy(0)-yy(a)}" rx="2" fill="${on?'#7a4fd6':'#c4b0ef'}"><title>${k+1}월 ${usd(a)}</title></rect>`;
+      if(a!=null){g+=`<rect x="${x-bw/2}" y="${yy(a)}" width="${bw}" height="${yy(0)-yy(a)}" rx="2" fill="${on?'#8A6FDB':'#D3C8F4'}"><title>${k+1}월 ${usd(a)}</title></rect>`;
         g+=`<text x="${x}" y="${yy(a)-6}" text-anchor="middle" font-size="${on?12:10}" font-weight="${on?700:500}" fill="${on?'var(--fg)':'var(--sub)'}">$${Math.round(a)}</text>`}
       g+=`<text x="${x}" y="${H-7}" text-anchor="middle" font-size="11" fill="${on?'var(--fg)':'var(--mute)'}" font-weight="${on?700:400}">${k+1}월</text>`});
     return`<div class="g2m"><article class="card k2 mk adsl"><div class="kl">${yr}년 누적 수익</div><div class="kv"><b>${usd(acc)}</b></div><div class="kd">1~${+m.slice(5)}월 합계</div></article>
@@ -413,7 +413,7 @@ function startMonthly(MP,MS,MC){
         <article class="card goal" style="margin-top:14px">${goal(M.raw,M.months,m,3,`<span>실매출(광고비 차감) <b>${won(c[5])}원</b></span><span>객단가 <b>${won(c[2]?c[3]/c[2]:0)}원</b></span><span>가입 대비 결제 <b>${c[1]?(c[2]/c[1]*100).toFixed(1):0}%</b></span>${ad.length?`<span>광고 ROAS <b>${adCost?(adRev/adCost*100).toFixed(1):0}%</b></span>`:''}`)}</article>`)+
       sec('회원별 결제',`<article class="card"><div class="scroll">${memT}</div></article>`)+
       sec('주요 내용 · 예정 업무',two(tcard('주요 내용',lines(nt[0])),tcard('예정 업무',lines(nt[1]))))+
-      sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['방문자 수',0,''],['결제 금액',3,'만'],['광고비',4,'만'],['실매출',5,'만']],'#7a4fd6','#c4b0ef')}</div>`)+
+      sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['방문자 수',0,''],['결제 금액',3,'만'],['광고비',4,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
       sec('광고 매체별 성과',`<article class="card"><div class="scroll">${adT}</div></article>`)+
       sec('구글 애드센스',adsCard(M.adsense||{},m))+
@@ -435,7 +435,7 @@ function startMonthly(MP,MS,MC){
       sec('채널별 성과',two(st,km))+
       sec('주요 내용',two(tcard('스마트스토어',lines(nt[0])),tcard('크몽',lines(nt[2]))))+
       sec('예정 업무',two(tcard('스마트스토어',lines(nt[1])),tcard('크몽',lines(nt[3]))))+
-      sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['스마트스토어 결제 금액',2,'만'],['크몽 결제 금액',6,'만'],['스마트스토어 광고비',3,'만'],['크몽 광고비',7,'만']],'#03a65a','#9fdcbc')}</div>`)+
+      sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['스마트스토어 결제 금액',2,'만'],['크몽 결제 금액',6,'만'],['스마트스토어 광고비',3,'만'],['크몽 광고비',7,'만']],'#7BB235','#CBE3AC')}</div>`)+
       sec('결제 상위 콘텐츠 TOP 10',two(tcard('스마트스토어',fpT(fp.s)),tcard('크몽',fpT(fp.k)))));
   }
 
@@ -535,15 +535,15 @@ function renderTasks(w){
   const dd=s=>s?`${+s.slice(5,7)}/${+s.slice(8,10)}`:'-';
   const lk=u=>/^https?:\/\//i.test(u||'')?`<a class="lk" href="${esc(u)}" target="_blank" rel="noopener noreferrer">열기 ↗</a>`:'<span style="color:var(--mute)">-</span>';
   document.getElementById('taskWrap').innerHTML=l.length
-   ?`<table class="tk"><colgroup><col style="width:26%"><col style="width:11%"><col style="width:10%"><col><col style="width:10%"></colgroup><thead><tr><th>업무</th><th>상태</th><th>예정일</th><th style="text-align:left">세부 내용</th><th>링크</th></tr></thead><tbody>`+
-     l.map(t=>{const s=st(t[2]);return`<tr><td class="tl" style="text-align:left;white-space:normal;font-weight:600">${esc(t[1])}</td><td><span class="st ${CLS[s]}">${s}</span></td><td>${dd(t[3])}</td><td class="ds">${esc(t[4])}</td><td>${lk(t[5])}</td></tr>`}).join('')+'</tbody></table>'
+   ?`<table class="tk"><colgroup><col style="width:28%"><col style="width:11%"><col style="width:10%"><col></colgroup><thead><tr><th>업무</th><th>상태</th><th>예정일</th><th style="text-align:left">세부 내용</th></tr></thead><tbody>`+
+     l.map(t=>{const s=st(t[2]);return`<tr><td class="tl" style="text-align:left;white-space:normal;font-weight:600">${esc(t[1])}</td><td><span class="st ${CLS[s]}">${s}</span></td><td>${dd(t[3])}</td><td class="ds">${esc(t[4])}</td></tr>`}).join('')+'</tbody></table>'
    :'<div class="empty">이 주에 기입한 업무가 없습니다. 원본 시트 「진행 및 예정업무」 탭에 추가하면 여기에 나옵니다.</div>';
 }
 
 document.getElementById('src').textContent=info;
 const DAILY=[
- {id:'sm',name:'슬라이드멤버스',hex:'#7a4fd6',i:5},
- {id:'ss',name:'씨티미디어 스마트스토어',hex:'#03a65a',i:1},
+ {id:'sm',name:'슬라이드멤버스',hex:'#8A6FDB',i:5},
+ {id:'ss',name:'씨티미디어 스마트스토어',hex:'#7BB235',i:1},
  {id:'km',name:'씨티미디어 크몽',hex:'#f08a00',i:3}];
 const YFS={id:'yf',name:'예스폼 파워포인트',hex:'#4A86E8'};
 const SHS={id:'shop',name:'쇼핑몰',hex:'#d6336c'};
@@ -584,7 +584,7 @@ const ICON={
   'P':SV('<path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 6.9L12 17.6 5.7 21l1.5-6.9L2 9.3l7-.8z"/>') // 프리미엄: 별
 };
 // 아이콘별 원형 배경/아이콘 색 (파랑·보라·초록·주황)
-const TONE={b:['#e1eefc','#4A86E8'],p:['#efe7fb','#7a4fd6'],g:['#e3f4ea','#1e9e5a'],o:['#fdf0e1','#e07a00']};
+const TONE={b:['#e1eefc','#4A86E8'],p:['#EFEAFB','#8A6FDB'],g:['#EEF6E3','#1e9e5a'],o:['#fdf0e1','#e07a00']};
 const ICT={'₩':'b','건':'p','단':'g','예':'o','신':'p','大':'o','P':'b'};
 const kpi=(ic,l,v,u,d)=>{const t=TONE[ICT[ic]||'b'];return`<article class="card kpi"><span class="ic" style="background:${t[0]};color:${t[1]}">${ICON[ic]||ic}</span><div><div class="kl">${l}</div><div class="kv"><b>${v}</b><u>${u}</u></div><div class="kd">${d}</div></div></article>`};
 const typ=x=>x[4]>0?'신규':x[5]>0?'재결제':'구분없음';
