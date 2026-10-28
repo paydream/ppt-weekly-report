@@ -396,9 +396,14 @@ function startMonthly(MP,MS,MC){
       g+=`<text x="${x}" y="${H-7}" text-anchor="middle" font-size="11" fill="${on?'var(--fg)':'var(--mute)'}" font-weight="${on?700:400}">${k+1}월</text>`});
     return`<div class="g2m"><article class="card k2 mk adsl"><div class="kl">${yr}년 누적 수익</div><div class="kv"><b>${usd(acc)}</b></div><div class="kd">1~${+m.slice(5)}월 합계</div></article>
       <article class="card"><div class="ch"><h3>월별 수익</h3></div><div style="padding:10px 14px 6px"><svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block" role="img" aria-label="애드센스 월별 수익">${g}</svg></div></article></div>`};
+  // 영문 상품명: | – - : ( ) 뒤 설명을 빼고, 'PowerPoint·PPT·Template' 같은 상품 단어까지만
+  const smTitle=t=>{let c=String(t).replace(/\([^)]*\)|\[[^\]]*\]/g,' ').split(/\s[|–—-]\s|\s\|\s|:\s/)[0].replace(/\s+/g,' ').trim();
+    const S=/^(powerpoint|ppt|pptx|keynote|templates?|slides?|presentations?|deck|themes?|diagrams?|charts?|infographics?)$/i,C=/^(powerpoint|ppt|pptx|keynote|google|templates?|slides?|presentations?|deck|themes?|diagrams?|charts?|infographics?|design|backgrounds?)$/i;
+    const w=c.split(' ');const i=w.findIndex(x=>S.test(x));if(i<0)return c||t;let j=i;if(j+1<w.length&&C.test(w[j+1]))j++;return w.slice(0,j+1).join(' ')};
   function renderSM(m){const M=MS,c=M.raw[m];if(!c||!M.months.includes(m))return pane('mSm',noData(m));
     const p=M.raw[prevM(m)],y=M.raw[yoyM(m)];
-    const K=[['방문자 수',0,'명'],['가입수',1,'명'],['결제수',2,'건'],['결제 금액',3,'원'],['광고비',4,'원']];
+    const K=[['방문자 수',0,'명'],['결제수',2,'건'],['결제 금액',3,'원'],['광고비',4,'원']];
+    const AS=M.adsense||{},asv=AS[m],asp=AS[prevM(m)],asy=AS[yoyM(m)];
     const ad=M.ad[m]||[],adCost=ad.reduce((a,x)=>a+x[1],0),adRev=ad.reduce((a,x)=>a+x[3],0);
     const MEM=[['베이직','1일',6],['베이직','일주일',7],['프리미엄','1년',8],['프리미엄','월정액 (신규)',9],['프리미엄','월정액 (연장)',10]];
     const tot=MEM.reduce((a,x)=>a+c[x[2]],0)||1;
@@ -406,19 +411,20 @@ function startMonthly(MP,MS,MC){
       MEM.map(([g,t,i])=>`<tr><td class="tl">${g}</td><td class="tl">${t}</td><td><b>${won(c[i])}</b></td><td><div class="sb"><i style="width:${(c[i]/tot*100).toFixed(1)}%"></i><span>${(c[i]/tot*100).toFixed(1)}%</span></div></td><td>${p?won(p[i]):'-'}</td><td>${y?won(y[i]):'-'}</td><td>${y?df(c[i],y[i]):'-'}</td></tr>`),'회원별 결제 데이터가 없습니다.');
     const adT=tb2('<th style="text-align:left">매체</th><th>광고비</th><th>전환수</th><th>전환 매출</th><th>ROAS</th>',ad.map(r=>`<tr><td class="tl">${esc(r[0])}</td><td>${won(r[1])}</td><td>${+r[2].toFixed(2)}</td><td>${won(r[3])}</td><td><b>${r[1]?(r[3]/r[1]*100).toFixed(1):0}%</b></td></tr>`),'이 달 광고 데이터가 없습니다.');
     const fp=M.fp[m];
-    const fpT=a=>tb('<th>No</th><th style="text-align:left">제목</th><th>결제수</th>',(a||[]).map((r,i)=>`<tr><td>${i+1}</td><td class="tl">${esc(r[0])}</td><td>${r[1]}건</td></tr>`),'이 달 첫 결제 데이터가 없습니다.');
+    const fpT=a=>tb('<th>No</th><th style="text-align:left">제목</th><th>결제수</th>',(a||[]).map((r,i)=>`<tr><td>${i+1}</td><td class="tl" title="${esc(r[0])}">${esc(smTitle(r[0]))}</td><td>${r[1]}건</td></tr>`),'이 달 첫 결제 데이터가 없습니다.');
     const ga=M.ga[m]||{},nt=M.note[m]||['',''];
     pane('mSm',
-      sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}</div>
+      sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}${card('구글 애드센스',asv==null?'-':usd(asv),'',asv!=null&&asp?pct(asv,asp):null,asv!=null&&asy?pct(asv,asy):null)}</div>
         <article class="card goal" style="margin-top:14px">${goal(M.raw,M.months,m,3,`<span>실매출(광고비 차감) <b>${won(c[5])}원</b></span><span>객단가 <b>${won(c[2]?c[3]/c[2]:0)}원</b></span><span>가입 대비 결제 <b>${c[1]?(c[2]/c[1]*100).toFixed(1):0}%</b></span>${ad.length?`<span>광고 ROAS <b>${adCost?(adRev/adCost*100).toFixed(1):0}%</b></span>`:''}`)}</article>`)+
       sec('회원별 결제',`<article class="card"><div class="scroll">${memT}</div></article>`)+
       sec('주요 내용 · 예정 업무',two(tcard('주요 내용',lines(nt[0])),tcard('예정 업무',lines(nt[1]))))+
       sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['방문자 수',0,''],['결제 금액',3,'만'],['광고비',4,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
       sec('광고 매체별 성과',`<article class="card"><div class="scroll">${adT}</div></article>`)+
-      sec('구글 애드센스',adsCard(M.adsense||{},m))+
       sec('첫 결제 콘텐츠 TOP 10',fp?two(tcard('프리미엄',fpT(fp.p)),tcard('유료',fpT(fp.u))):'<div class="card empty">이 달 첫 결제 콘텐츠는 원본 시트에서 불러온 화면(Vercel)에서 볼 수 있습니다.</div>'));
   }
+  // 상품명에서 [ ], ( ) 부분과 ' - ' 뒤 설명을 빼고 핵심 이름만
+  const ctTitle=t=>{const c=String(t).replace(/\[[^\]]*\]/g,' ').replace(/\([^)]*\)/g,' ').split(/\s[-–—]\s/)[0].replace(/\s+/g,' ').trim();return c||t};
   function renderCT(m){const M=MC,c=M.raw[m];if(!c||!M.months.includes(m))return pane('mCt',noData(m));
     const p=M.raw[prevM(m)],y=M.raw[yoyM(m)];
     const S=(r,a,b)=>r?r[a]+r[b]:null;
@@ -428,7 +434,7 @@ function startMonthly(MP,MS,MC){
     const st=ch('스마트스토어',[['방문자 수',won(c[0]),'명',p&&pct(c[0],p[0])],['결제수',won(c[1]),'건',p&&pct(c[1],p[1])],['결제 금액',won(c[2]),'원',p&&pct(c[2],p[2])],['광고비',won(c[3]),'원',p&&pct(c[3],p[3])],['실매출',won(c[4]),'원',p&&pct(c[4],p[4])],['ROAS',roas(c[2],c[3]),'%',undefined]]);
     const km=ch('크몽',[['결제수',won(c[5]),'건',p&&pct(c[5],p[5])],['결제 금액',won(c[6]),'원',p&&pct(c[6],p[6])],['광고비',won(c[7]),'원',p&&pct(c[7],p[7])],['실매출',won(c[8]),'원',p&&pct(c[8],p[8])],['객단가',won(c[5]?c[6]/c[5]:0),'원',undefined],['ROAS',roas(c[6],c[7]),'%',undefined]]);
     const fp=M.fp[m]||{};
-    const fpT=a=>tb('<th>No</th><th style="text-align:left">제목</th><th>결제수</th><th>결제 금액</th>',(a||[]).map((r,i)=>`<tr><td>${i+1}</td><td class="tl">${esc(r[0])}</td><td>${r[1]}건</td><td>${won(r[2])}</td></tr>`),'이 달 결제 콘텐츠 데이터가 없습니다.');
+    const fpT=a=>tb('<th>No</th><th style="text-align:left">제목</th><th>결제수</th><th>결제 금액</th>',(a||[]).map((r,i)=>`<tr><td>${i+1}</td><td class="tl" title="${esc(r[0])}">${esc(ctTitle(r[0]))}</td><td>${r[1]}건</td><td>${won(r[2])}</td></tr>`),'이 달 결제 콘텐츠 데이터가 없습니다.');
     const nt=M.note[m]||['','','',''],ins=M.ins[m]||['',''];
     pane('mCt',
       sec('전체 성과',`<div class="g4m">${K.map(([l,a,b,u])=>card(l,won(S(c,a,b)),u,p&&pct(S(c,a,b),S(p,a,b)),y&&S(y,a,b)?pct(S(c,a,b),S(y,a,b)):null)).join('')}</div>`)+
