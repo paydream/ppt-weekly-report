@@ -303,7 +303,7 @@ table.mt{min-width:0;table-layout:fixed}
   </section>
   <section class="sec">
     <div class="sec-head"><h2>예스폼 파워포인트 상세</h2></div>
-    <div class="g3" id="yfKpis"></div>
+    <div class="g3" id="yfKpis" style="grid-template-columns:repeat(4,minmax(0,1fr))"></div>
     <div hidden><ul id="yfIns"></ul></div>
     <div hidden><div id="yfCat"></div><div id="yfMixLg"></div><div id="yfMix"></div></div>
     <div class="card">
@@ -779,7 +779,8 @@ function renderYF(w,pw){
   document.getElementById('yfKpis').innerHTML=
     k2('신규 결제',nw,pnw,`재결제 ${cnt(l,x=>typ(x)==='재결제')}건`)+
     k2('연간 결제 (110,000원 이상)',big.length,pbig,`매출의 ${v?(bigV/v*100).toFixed(1):0}%`)+
-    k2('프리미엄 가입',pre,ppre,`전체 결제의 ${n?(pre/n*100).toFixed(0):0}%`);
+    k2('프리미엄 가입',pre,ppre,`전체 결제의 ${n?(pre/n*100).toFixed(0):0}%`)+
+    (()=>{const mc=cnt(l,x=>['1MP','1ME'].includes(String(x[9]||'').toUpperCase())),pmc=cnt(p,x=>['1MP','1ME'].includes(String(x[9]||'').toUpperCase()));return k2('월정액 가입',mc,pmc,`프리미엄 월정액 ${cnt(l,x=>String(x[9]||'').toUpperCase()==='1MP')} · 기업 ${cnt(l,x=>String(x[9]||'').toUpperCase()==='1ME')}`)})();
 
   const ins=[];
   ins.push(['매출',pw?`${won(v)}원, 전주보다 ${dl(pct(v,pv),'').trim()}. 결제수 ${pn}건 → ${n}건`:`${won(v)}원, 결제 ${n}건`]);
