@@ -56,11 +56,18 @@ h2{margin:0;font-size:20px;font-weight:700}
 .tk{table-layout:fixed;min-width:780px}
 .tk th:nth-child(2),.tk td:nth-child(2),.tk th:nth-child(3),.tk td:nth-child(3){text-align:center;padding-left:8px;padding-right:8px}
 .tk th:nth-child(4){text-align:left}
-.top3 .k2{display:flex;flex-direction:column;padding:14px 18px 14px 24px}.top3 .k2{padding-bottom:18px!important;padding-left:18px!important;padding-right:14px!important}.top3 .k2 .kd{font-size:12px;letter-spacing:-.2px}.top3 .k2 .kv{margin-top:12px}.top3 .k2 .kd{margin-top:4px}.top3 .kl,.top3 .insc>.kl{font-size:15px!important;font-weight:600!important;color:#333!important;line-height:24px!important;height:24px;margin:0!important;padding:0}
-.top3{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.top3 .k2{display:flex;flex-direction:column;padding:14px 18px 14px 24px}.top3 .k2{padding-bottom:18px!important;padding-left:18px!important;padding-right:14px!important}.top3 .k2 .kd{font-size:12px;letter-spacing:-.2px}.top3 .k2 .kv{margin-top:12px}.top3 .k2 .kd{margin-top:4px}.top3 .kl,.top3 .insc>.kl{font-size:15px!important;font-weight:600!important;color:#333!important;line-height:24px!important;height:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0!important;padding:0}
+.top3{display:grid;grid-template-columns:2fr 2fr 1fr;gap:16px}
+.grp{display:flex;flex-direction:column;min-width:0}
+.gname{font-size:12.5px;font-weight:600;color:var(--mute);margin:0 0 6px 2px;letter-spacing:-.1px}
+.gbox{flex:1;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.gbox>.k2{border:0!important;border-radius:0;background:transparent;box-shadow:none}
+.gbox>.k2+.k2{border-left:1px solid var(--line2)!important}
+.gsub{font-size:12px;font-weight:500;color:var(--mute);margin-left:4px}
 .insc{padding:14px 18px;grid-column:1/-1}.insc ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px}.insc li{display:grid;grid-template-columns:76px 1fr;gap:10px;align-items:start}.insc li>i{font-style:normal;font-size:12px;color:#666;background:#f3f4f6;border-radius:6px;padding:3px 0;text-align:center}.insc li>div{font-size:14px;line-height:1.55;color:#333}.insc li>div b{font-weight:700;color:#222}.insc li>div b.up{color:#d93025}.insc li>div b.dn{color:#4A86E8}.insc .it{font-size:14px;white-space:nowrap}.insc .it em{font-style:normal;color:#444;margin-right:5px}.insc .it b{font-weight:700;color:#222}.insc .it b.up{color:#d93025}.insc .it b.dn{color:#4A86E8}
-@media (max-width:900px){.top3{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:520px){.top3{grid-template-columns:1fr}}
+@media (max-width:900px){.top3{grid-template-columns:1fr 1fr}}@media (max-width:520px){.top3{grid-template-columns:1fr}}
 #blogWrap .bc{text-align:center!important}
+.pass{display:inline-block;min-width:52px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;text-align:center;line-height:1.4;background:#eef1f6;color:#5f6b7a}.pass.pm{background:#2f5fb8;color:#fff}.pass.py{background:#e4edfc;color:#2f6fd6}.pass.p2{background:#ede7fb;color:#6a4fc4}.pass.p1{background:#e6f5ee;color:#2e8a5c}.pass.pw{background:#fdf0e1;color:#c06a00}.pass.pe{background:#d6336c;color:#fff}
 .g5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
 @media (max-width:1000px){.g5{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
@@ -190,13 +197,44 @@ table.mt{min-width:0;table-layout:fixed}
 .ib h4{margin:12px 0 6px;font-size:15px;color:var(--accent)}
 .ib p{margin:2px 0;font-size:14px;line-height:1.6;color:#444}
 .ib p.ia{margin-top:6px;font-weight:600;color:#222}
+.cmpw{overflow-x:auto}
+.cmpt{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.cmpt th,.cmpt td{padding:14px 18px;border-bottom:1px solid var(--grid);text-align:right;vertical-align:middle}
+.cmpt thead th{font-size:13px;font-weight:600;color:var(--sub);background:#fafbfc}
+.cmpt tbody th{text-align:left;font-size:14px;font-weight:600;color:var(--fg);white-space:nowrap}
+.cmpt td b{font-size:20px;font-weight:700}.cmpt td u{text-decoration:none;color:var(--sub);margin-left:2px;font-size:13px}
+.cmpt .cm{font-size:12px;color:var(--mute);margin-top:2px}.cmpt .cm .up{color:var(--bad);font-weight:700}.cmpt .cm .dn{color:#4A86E8;font-weight:700}
+.cmpt thead i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:0}
+.cmpt .cs1 i{background:#7BB235}.cmpt .cs2 i{background:#CBE3AC}
+.cmpt .shr{width:200px}
+.sbar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:#CBE3AC}.sbar span{background:#7BB235}
+.slb{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-top:4px}
+.cmpn{margin:0;padding:12px 18px 16px;font-size:12px;color:var(--mute)}.cmpn .up{color:var(--bad);font-weight:700}.cmpn .dn{color:#4A86E8;font-weight:700}
+@media(max-width:640px){.cmpt th,.cmpt td{padding:10px}.cmpt td b{font-size:16px}.cmpt .shr{width:110px}}
+.chx{overflow:hidden}
+.chh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:14px 20px;border-bottom:1px solid var(--grid)}
+.chh h3{margin:0;font-size:16px;font-weight:700}
+.cx1 .chh{background:#F1F8E8;border-top:4px solid #7BB235}.cx1 .chh h3{color:#4F7E1A}
+.cx2 .chh{background:#E8F4F1;border-top:4px solid #3E9C86}.cx2 .chh h3{color:#2B7464}
+.chs{font-size:12px;color:var(--sub)}.chs .up{color:var(--bad);font-weight:700}.chs .dn{color:#4A86E8;font-weight:700}
+.chg{display:grid;grid-template-columns:1fr 1fr}
+.chm{padding:16px 20px;border-bottom:1px solid var(--grid)}.chm:nth-child(odd){border-right:1px solid var(--grid)}.chm:nth-last-child(-n+2){border-bottom:0}
+.chl{font-size:13px;color:var(--sub)}
+.chv{margin-top:2px;font-variant-numeric:tabular-nums}.chv b{font-size:22px;font-weight:700}.chv u{text-decoration:none;color:var(--sub);margin-left:2px;font-size:13px}
+.chd{display:flex;gap:12px;margin-top:4px;font-size:12px;color:var(--mute)}.chd .up{color:var(--bad);font-weight:700}.chd .dn{color:#4A86E8;font-weight:700}
+.goalc .gsub2{font-size:12px;color:var(--mute);font-weight:400;margin-left:6px}
+.gl{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;margin-top:12px}
+.gt{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--sub)}.gt b{font-size:22px;color:var(--fg)}.gt b.ok{color:#4A86E8}
+.gb{height:10px;border-radius:5px;background:#e9edf3;overflow:hidden;margin-top:6px}.gb span{display:block;height:100%;background:#4A86E8;border-radius:5px}
+.gnote{font-size:12px;color:var(--mute);margin-top:6px}.gnote b{color:var(--fg);font-size:13px;margin-right:1px}
+@media(max-width:640px){.gl{grid-template-columns:1fr}}
 </style>
 
 </head>
 <body>
 <header>
   <div class="hd">
-    <div><div class="hl1"><h1>PPT 보고서</h1><div class="tabs" role="tablist"><button type="button" data-v="w" class="on">주간 보고서</button><button type="button" data-v="m">월간 보고서</button></div></div><div class="meta" id="src" style="font-size:12px;margin-top:2px">불러오는 중…</div></div>
+    <div><div class="hl1"><h1 style="display:flex;align-items:center;gap:10px"><img src="logo.png" alt="예스폼" width="30" height="30" style="display:block">PPT 보고서</h1><div class="tabs" role="tablist"><button type="button" data-v="w" class="on">주간 보고서</button><button type="button" data-v="m">월간 보고서</button></div></div><div class="meta" id="src" style="font-size:12px;margin-top:2px">불러오는 중…</div></div>
     <div class="ctrl">
       <label class="wsel" id="wCtl"><span>기준 주차</span><select id="weeks" aria-label="주차 선택"></select></label>
       <label class="wsel" id="mCtl" hidden><span>기준 월</span><select id="months" aria-label="월 선택"></select></label>
@@ -208,7 +246,7 @@ table.mt{min-width:0;table-layout:fixed}
 <main class="wrap" id="wView">
   <section class="sec">
     <div class="sec-head"><h2>전체 성과</h2><span hidden id="meta"></span></div>
-    <div class="top3"><div id="kpis" style="display:contents"></div><div id="yfTop" style="display:contents"></div><article class="card insc"><div class="kl">주요 내용</div><ul id="allIns"></ul></article></div>
+    <div class="top3"><div class="grp g2c"><div class="gname">PPT 4개 사이트 합계</div><div class="gbox" id="kpis"></div></div><div class="grp g2c"><div class="gname">예스폼 전체 대비</div><div class="gbox" id="yfTop"></div></div><div class="grp"><div class="gname">부가 수익</div><div class="gbox" id="adTop"></div></div><article class="card insc goalc"><div class="kl">예스폼 파워포인트 목표 달성률 <span class="gsub2">주간 목표 결제 20건</span></div><div class="gl" id="goal"></div></article><ul id="allIns" hidden></ul></div>
   </section>
   <section class="sec">
     <div class="sec-head"><h2>사이트별 성과</h2></div>
@@ -255,7 +293,7 @@ table.mt{min-width:0;table-layout:fixed}
 </main>
 
 <script>// ▼ Apps Script 웹 앱 배포 후 받은 URL을 따옴표 안에 붙여 넣으세요
-const API_URL='https://script.google.com/macros/s/AKfycbwPZIreLPjt0tMsDQV7O_CDgx2CE76bnh0Bn7xqORXngAvaM3L4X2QkwOLPcaHhqBn7/exec';
+const API_URL='여기에_웹앱_URL';
 
 // 원본 시트 「주간」 탭 일간 입력 (날짜, 스토어 건/금액, 크몽 건/금액, 슬멤 건/금액)
 const RAW_SAVED=[["2026-09-21", 0, 0, 0, 0, 12, 177374], ["2026-09-22", 0, 0, 2, 46000, 8, 111630], ["2026-09-23", 0, 0, 1, 34000, 10, 149402], ["2026-09-24", 0, 0, 3, 55000, 12, 173002], ["2026-09-25", 2, 54800, 3, 58000, 4, 58658], ["2026-09-26", 0, 0, 1, 25000, 12, 181660], ["2026-09-27", 0, 0, 3, 38000, 13, 191446], ["2026-09-28", 2, 26800, 6, 126000, 15, 208774], ["2026-09-29", 2, 26800, 0, 0, 8, 121688], ["2026-09-30", 0, 0, 1, 12000, 2, 27886], ["2026-10-01", 1, 8900, 0, 0, 12, 281796], ["2026-10-02", 6, 69400, 3, 27000, 10, 267902], ["2026-10-03", 0, 0, 0, 0, 8, 115916], ["2026-10-04", 0, 0, 0, 0, 8, 110144], ["2026-10-05", 0, 0, 1, 19000, 6, 90916], ["2026-10-06", 4, 92600, 3, 52000, 16, 352288], ["2026-10-07", 0, 0, 4, 83000, 11, 391288], ["2026-10-08", 1, 35900, 2, 39000, 12, 175974], ["2026-10-09", 0, 0, 0, 0, 10, 150974], ["2026-10-10", 0, 0, 0, 0, 14, 196688], ["2026-10-11", 2, 41800, 1, 14000, 10, 149574], ["2026-10-12", 2, 65800, 2, 19000, 8, 117402], ["2026-10-13", 2, 23800, 4, 42000, 9, 135588], ["2026-10-14", 3, 29700, 2, 32000, 7, 109102], ["2026-10-15", 1, 11900, 2, 10000, 9, 135674], ["2026-10-16", 1, 16900, 3, 46000, 10, 148088], ["2026-10-17", 0, 0, 0, 0, 6, 87944], ["2026-10-18", 0, 0, 0, 0, 11, 290960], ["2026-10-19", 3, 77700, 1, 5000, 11, 395660], ["2026-10-20", 0, 0, 1, 5000, 6, 92316], ["2026-10-21", 2, 28800, 0, 0, 10, 145202], ["2026-10-22", 0, 0, 2, 28000, 10, 150888], ["2026-10-23", 2, 18800, 1, 5000, 3, 43272], ["2026-10-24", 0, 0, 2, 40000, 12, 167402], ["2026-10-25", 2, 31800, 4, 53000, 11, 284602], ["2026-10-26", 1, 2900, 1, 19000, 14, 443446]];
@@ -345,13 +383,13 @@ function startMonthly(MP,MS,MC){
       <div><div class="gt">${m.slice(0,4)}년 누적 (1~${+m.slice(5)}월)</div><div class="kv"><b>${aR==null?'-':aR.toFixed(1)}</b><u>%</u></div>${bar(aR)}<div class="kd">실적 ${won(aA)}원 / 목표 ${won(aT)}원</div></div></div>
       <div class="gs">${extra}</div><div class="gn">목표는 전년 같은 달 결제 금액입니다.</div>`};
   // 월별 추이 막대 (전년 회색, 올해 사이트 색)
-  const trend=(R,m,defs,hex,soft)=>{const yr=m.slice(0,4),py=String(+yr-1);
+  const trend=(R,m,defs,hex,soft,off=0)=>{const yr=m.slice(0,4),py=String(+yr-1);
     return defs.map(([t,i,u],ci)=>{const A=[],B=[];for(let k=1;k<=12;k++){const mm=('0'+k).slice(-2);const a=R[`${py}-${mm}`],b=R[`${yr}-${mm}`];A.push(a&&a[i]?a[i]:null);B.push(b&&b[i]!=null&&(b[i]||b.some(v=>v))?b[i]:null)}
       const mx=Math.max(1,...A.filter(v=>v!=null),...B.filter(v=>v!=null));
       const W=560,H=210,T=28,Bm=24,L=6,R2=6,gw=(W-L-R2)/12,bw=Math.min(14,(gw-8)/2),yy=v=>T+(1-v/mx)*(H-T-Bm);
       const f=v=>u==='만'?(v/1e4>=100?Math.round(v/1e4):(Math.round(v/1e3)/10)):won(v);
       let g=`<line x1="${L}" x2="${W-R2}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--grid)"/>`;
-      if(ci<2){const pts=(V,c,w)=>{const P=V.map((v,k)=>v==null?null:[L+gw*k+gw/2,yy(v)]);let d='';P.forEach((q,k)=>{if(!q)return;d+=(d&&P[k-1]?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)});return`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`+P.map((q,k)=>q?`<circle cx="${q[0]}" cy="${q[1]}" r="${w>2?3.2:2.4}" fill="#fff" stroke="${c}" stroke-width="${w>2?2:1.5}"><title>${k+1}월 ${won(V[k])}</title></circle>`:'').join('')};
+      if(ci+off<2){const pts=(V,c,w)=>{const P=V.map((v,k)=>v==null?null:[L+gw*k+gw/2,yy(v)]);let d='';P.forEach((q,k)=>{if(!q)return;d+=(d&&P[k-1]?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)});return`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`+P.map((q,k)=>q?`<circle cx="${q[0]}" cy="${q[1]}" r="${w>2?3.2:2.4}" fill="#fff" stroke="${c}" stroke-width="${w>2?2:1.5}"><title>${k+1}월 ${won(V[k])}</title></circle>`:'').join('')};
         g+=pts(A,'#c3c8d0',1.5)+pts(B,hex,2.5);
         for(let k=0;k<12;k++){const x=L+gw*k+gw/2,on=k===+m.slice(5)-1;
           if(B[k]!=null)g+=`<text x="${x}" y="${yy(B[k])-9}" text-anchor="middle" font-size="${on?12:10.5}" font-weight="${on?700:500}" fill="${on?'var(--fg)':'var(--sub)'}">${f(B[k])}${u}</text>`;
@@ -433,15 +471,18 @@ function startMonthly(MP,MS,MC){
     const roas=(rev,cost)=>cost?(rev/cost*100).toFixed(1):'-';
     const st=ch('스마트스토어',[['방문자 수',won(c[0]),'명',p&&pct(c[0],p[0])],['결제수',won(c[1]),'건',p&&pct(c[1],p[1])],['결제 금액',won(c[2]),'원',p&&pct(c[2],p[2])],['광고비',won(c[3]),'원',p&&pct(c[3],p[3])],['실매출',won(c[4]),'원',p&&pct(c[4],p[4])],['ROAS',roas(c[2],c[3]),'%',undefined]]);
     const km=ch('크몽',[['결제수',won(c[5]),'건',p&&pct(c[5],p[5])],['결제 금액',won(c[6]),'원',p&&pct(c[6],p[6])],['광고비',won(c[7]),'원',p&&pct(c[7],p[7])],['실매출',won(c[8]),'원',p&&pct(c[8],p[8])],['객단가',won(c[5]?c[6]/c[5]:0),'원',undefined],['ROAS',roas(c[6],c[7]),'%',undefined]]);
+    const CR=[['결제 금액',2,6,'원'],['결제수',1,5,'건'],['광고비',3,7,'원'],['실매출',4,8,'원']];
+    const chx=(nm,cls,ix,extra)=>`<article class="card chx ${cls}"><div class="chh"><h3>${nm}</h3>${extra||''}</div><div class="chg">`+
+      CR.map(([l,a,b,u])=>{const k=ix?b:a,v=c[k]||0;return`<div class="chm"><div class="chl">${l}</div><div class="chv"><b>${won(v)}</b><u>${u}</u></div><div class="chd"><span>전월 ${p?chg(pct(v,p[k])):chg(null)}</span><span>전년 ${y&&y[k]?chg(pct(v,y[k])):chg(null)}</span></div></div>`}).join('')+`</div></article>`;
+    const cmp=two(chx('스마트스토어','cx1',0,`<span class="chs">방문자 ${won(c[0])}명 · 전월 ${p?chg(pct(c[0],p[0])):chg(null)}</span>`),chx('크몽','cx2',1,''));
     const fp=M.fp[m]||{};
     const fpT=a=>tb('<th>No</th><th style="text-align:left">제목</th><th>결제수</th><th>결제 금액</th>',(a||[]).map((r,i)=>`<tr><td>${i+1}</td><td class="tl" title="${esc(r[0])}">${esc(ctTitle(r[0]))}</td><td>${r[1]}건</td><td>${won(r[2])}</td></tr>`),'이 달 결제 콘텐츠 데이터가 없습니다.');
     const nt=M.note[m]||['','','',''],ins=M.ins[m]||['',''];
     pane('mCt',
-      sec('전체 성과',`<div class="g4m">${K.map(([l,a,b,u])=>card(l,won(S(c,a,b)),u,p&&pct(S(c,a,b),S(p,a,b)),y&&S(y,a,b)?pct(S(c,a,b),S(y,a,b)):null)).join('')}</div>`)+
-      sec('채널별 성과',two(st,km))+
+      sec('채널별 성과',cmp)+
       sec('주요 내용',two(tcard('스마트스토어',lines(nt[0])),tcard('크몽',lines(nt[2]))))+
       sec('예정 업무',two(tcard('스마트스토어',lines(nt[1])),tcard('크몽',lines(nt[3]))))+
-      sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['스마트스토어 결제 금액',2,'만'],['크몽 결제 금액',6,'만'],['스마트스토어 광고비',3,'만'],['크몽 광고비',7,'만']],'#7BB235','#CBE3AC')}</div>`)+
+      sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['스마트스토어 결제 금액',2,'만']],'#7BB235','#CBE3AC')}${trend(M.raw,m,[['크몽 결제 금액',6,'만']],'#3E9C86','#B5DDD3')}${trend(M.raw,m,[['스마트스토어 광고비',3,'만']],'#7BB235','#CBE3AC',2)}${trend(M.raw,m,[['크몽 광고비',7,'만']],'#3E9C86','#B5DDD3',2)}</div>`)+
       sec('결제 상위 콘텐츠 TOP 10',two(tcard('스마트스토어',fpT(fp.s)),tcard('크몽',fpT(fp.k)))));
   }
 
@@ -475,7 +516,7 @@ const MC_SAVED={"months": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05"
 })();
 
 let ADSW=[["2026-10-01", "2026-10-04", 127.73], ["2026-10-05", "2026-10-11", 216.24], ["2026-10-12", "2026-10-18", 208.78], ["2026-10-19", "2026-10-25", 226.86]];
-const YF_SAVED=[["2026-09-21", 9900, "프리미엄", "의료 투자 제안서 PPT 템플릿 (비즈니스 투자 분석용)", 1, 0, "보고서·제안·사업계획", 1, ""], ["2026-09-21", 9900, "유료", "프로젝트 타임라인 (Project Timeline)", 1, 0, "다이어그램·인포그래픽", 1, ""], ["2026-09-21", 9900, "유료", "예수님의 사랑 (Christ) 피피티 배경", 0, 1, "배경·디자인", 1, ""], ["2026-09-21", 11000, "유료", "심플 타임라인 파워포인트 Infographic 템플릿", 0, 1, "다이어그램·인포그래픽", 1, ""], ["2026-09-21", 11000, "유료", "추석 일러스트 Powerpoint 배경", 0, 1, "시즌·행사", 1, ""], ["2026-09-21", 110000, "유료", "가을 사내 체육대회 운영계획서 PPT 템플릿 행사기획안 양식", 0, 1, "시즌·행사", 1, ""], ["2026-09-21", 110000, "프리미엄", "등산(Hiking) 파워포인트 배경 템플릿", 0, 1, "배경·디자인", 1, ""], ["2026-09-28", 9900, "프리미엄", "경영 실적 성과 분석 보고서 PPT 템플릿 (Analysis Report)", 0, 1, "보고서·제안·사업계획", 1, ""], ["2026-09-28", 9900, "유료", "AI 투자와 위험요인 경제 트렌드 리포트 템플릿", 0, 1, "트렌드리포트", 1, ""], ["2026-09-28", 9900, "유료", "행복한 크리스마스 PPT 배경 템플릿", 0, 1, "시즌·행사", 1, ""], ["2026-09-28", 9900, "프리미엄", "AI 자동화 시스템 구축 솔루션 제안서 PPT - 다크톤 오렌지 포인트 비즈니스 템플릿", 0, 1, "보고서·제안·사업계획", 1, ""], ["2026-09-28", 110000, "프리미엄", "1,000장 34세트 | 실전 비즈니스 PPT 템플릿 보고서 제안서 사업계획서 회사소개서 파워포인트 양식", 0, 1, "보고서·제안·사업계획", 1, ""], ["2026-09-28", 9900, "프리미엄", "신년도 사업계획서 파워포인트 템플릿 - 2026년 성장 가속과 가치 혁신 전략", 0, 1, "보고서·제안·사업계획", 1, ""], ["2026-09-28", 110000, "프리미엄", "성과 창출을 위한 하반기 개선전략 보고서 PPT 템플릿", 0, 1, "보고서·제안·사업계획", 1, "2026-10-01"], ["2026-09-28", 9900, "프리미엄", "2026 하반기 중소벤처기업부 지원사업 통합 사업계획서 PPT 템플릿", 0, 1, "보고서·제안·사업계획", 1, "2026-10-01"], ["2026-09-28", 110000, "프리미엄", "크루즈 여행(Ocean) 파워포인트 디자인", 0, 1, "배경·디자인", 1, "2026-10-01"], ["2026-09-28", 9900, "프리미엄", "휴먼 어드밴티지 프리미엄 트렌드 리포트: AI와 인간의 협업 전략", 1, 0, "트렌드리포트", 1, "2026-10-01"], ["2026-09-28", 9900, "프리미엄", "사진교체형 회사 조직도 인포그래픽 40장 세트", 1, 0, "다이어그램·인포그래픽", 1, "2026-10-02"], ["2026-09-28", 110000, "유료", "다문화 학교, 교육 파워포인트 템플릿", 0, 1, "교육·HR", 1, "2026-10-02"], ["2026-09-28", 9900, "유료", "2026년 미국 경제 전망 및 글로벌 트렌드리포트 PPT 템플릿", 1, 0, "트렌드리포트", 1, "2026-10-02"], ["2026-09-28", 11000, "유료", "클리닉 플랫 아이콘 2종세트", 1, 0, "다이어그램·인포그래픽", 1, "2026-10-04"], ["2026-09-28", 9900, "프리미엄", "임직원 AI 역량 강화 및 교육 프로그램 PPT 템플릿", 0, 1, "교육·HR", 1, "2026-10-04"], ["2026-10-05", 9900, "프리미엄", "전략적 M&amp;A 인수합병 기회 제안서 PPT 피치덱 템플릿 (기업 인수 투자 전략)", 1, 0, "보고서·제안·사업계획", 1, "2026-10-05"], ["2026-10-05", 9900, "유료", "2026 아이치 나고야 아시안게임 마케팅 캠페인 기획안 PPT 템플릿", 0, 1, "시즌·행사", 1, "2026-10-06"], ["2026-10-05", 9900, "프리미엄", "Style 주얼리 의류 브랜드 포트폴리오 감성 디자인 PPT 템플릿", 1, 0, "배경·디자인", 1, "2026-10-06"], ["2026-10-05", 9900, "유료", "시티 런 페스타 홍보 및 모집 프레젠테이션 PPT 템플릿", 1, 0, "시즌·행사", 1, "2026-10-07"], ["2026-10-05", 9900, "유료", "가을 행사 안내 파워포인트 템플릿 (문화·체험 중심)", 0, 1, "시즌·행사", 1, "2026-10-07"], ["2026-10-05", 9900, "프리미엄", "2026 최신 사업계획서·제안서·보고서용 재무 &amp; IR차트 특화 200장 PPT 템플릿", 1, 0, "보고서·제안·사업계획", 1, "2026-10-07"], ["2026-10-05", 11000, "유료", "2026년 미국 경제 전망 및 글로벌 트렌드리포트 PPT 템플릿", 1, 0, "트렌드리포트", 1, "2026-10-07"], ["2026-10-05", 11000, "무료", "비즈니스 성과 분석을 위한 하반기 실적 보고서 PPT 템플릿", 0, 1, "보고서·제안·사업계획", 1, "2026-10-08"], ["2026-10-05", 11000, "프리미엄", "글로벌 화장품 제조업 투자 제안서 (성장 로드맵 포함)", 0, 1, "보고서·제안·사업계획", 1, "2026-10-08"], ["2026-10-05", 9900, "유료", "3D 원형 그래프 Diagram 파워포인트 (Music)", 1, 0, "다이어그램·인포그래픽", 1, "2026-10-09"], ["2026-10-05", 9900, "유료", "하반기 공개채용 설명회 운영 계획서 PPT 템플릿 인사 관리 파워포인트 양식", 0, 1, "교육·HR", 1, "2026-10-10"], ["2026-10-05", 9900, "프리미엄", "실무 적용 기하학 패턴 상반기 재무 실적 보고서 PPT 템플릿", 1, 0, "보고서·제안·사업계획", 1, "2026-10-11"], ["2026-10-05", 9900, "유료", "기업소개서 비즈니스 파워포인트 템플릿", 1, 0, "보고서·제안·사업계획", 1, "2026-10-11"], ["2026-10-05", 9900, "프리미엄", "신입 및 경력사원 온보딩 교육 계획서 (체계적 관리 및 성장 지원)", 1, 0, "교육·HR", 1, "2026-10-11"], ["2026-10-12", 11000, "무료", "2026 월드컵 응원 마케팅 전략 PPT 템플릿 무료 다운로드 | 스포츠 마케팅 캠페인 기획서 양식", 1, 0, "시즌·행사", 1, "2026-10-12"], ["2026-10-12", 9900, "유료", "내장산 단풍축제 운영계획서 (안전하고 체계적인 축제 운영을 위한 템플릿)", 0, 1, "시즌·행사", 1, "2026-10-12"], ["2026-10-12", 11000, "유료", "리스트형 세미 피라미드 다이어그램 PPT 슬라이드(5Steps)", 1, 0, "다이어그램·인포그래픽", 1, "2026-10-12"], ["2026-10-12", 11000, "유료", "제품 개발 로드맵 간트차트 템플릿", 1, 0, "다이어그램·인포그래픽", 1, "2026-10-13"], ["2026-10-12", 9900, "프리미엄", "건설 그룹 세로형 파워포인트 건설 산업 동향 및 지명원 PPT", 1, 0, "보고서·제안·사업계획", 1, "2026-10-14"], ["2026-10-12", 9900, "프리미엄", "3분기 실적 보고 및 4분기 전략 제안서 PPT 프레젠테이션 템플릿", 1, 0, "보고서·제안·사업계획", 1, "2026-10-15"], ["2026-10-12", 9900, "유료", "팀 구조 조직도 다이어그램 PPT 슬라이드", 0, 1, "다이어그램·인포그래픽", 1, "2026-10-15"], ["2026-10-12", 110000, "유료", "SWOT 분석형 PPT Infographic", 1, 0, "다이어그램·인포그래픽", 1, "2026-10-15"], ["2026-10-19", 11000, "유료", "피쉬본 인포그래픽", 0, 1, "다이어그램·인포그래픽", 1, "2026-10-19"], ["2026-10-19", 178200, "프리미엄", "연간 실적 종합 보고서 PPT 템플릿 : 사업 성과 분석 양식", 0, 1, "보고서·제안·사업계획", 1, "2026-10-19"], ["2026-10-19", 11000, "유료", "미니벨로 자전거 (스포츠) 피피티 배경", 1, 0, "배경·디자인", 1, "2026-10-20"], ["2026-10-19", 9900, "유료", "애자일 프로젝트 플랜 (Agile Project Plan)", 0, 1, "다이어그램·인포그래픽", 1, "2026-10-20"], ["2026-10-19", 9900, "프리미엄", "신입 및 경력사원 온보딩 교육 계획서 (체계적 관리 및 성장 지원)", 0, 1, "교육·HR", 1, "2026-10-21"], ["2026-10-19", 9900, "무료", "한국의 미를 담은 무료 PPT 배경 템플릿 및 자료", 1, 0, "배경·디자인", 1, "2026-10-21"], ["2026-10-19", 11000, "유료", "전략 비즈니스 목표달성 보고서 PPT 템플릿", 0, 1, "보고서·제안·사업계획", 1, "2026-10-21"], ["2026-10-19", 110000, "프리미엄", "연간 실적 종합 보고서 PPT 템플릿 : 사업 성과 분석 양식", 0, 1, "보고서·제안·사업계획", 1, "2026-10-21"], ["2026-10-19", 110000, "프리미엄", "2026년 1분기 경영실적 및 전략 보고서 (수익성 개선 및 성장 전망)", 0, 1, "보고서·제안·사업계획", 1, "2026-10-21"], ["2026-10-19", 110000, "프리미엄", "2026 AI 검색 트렌드 리포트: 생성형 AI의 영향과 비즈니스 기회", 0, 1, "트렌드리포트", 1, "2026-10-22"], ["2026-10-19", 110000, "프리미엄", "사업계획 및 예산 운영계획서 PPT 템플릿 전략 실행계획 양식", 0, 1, "보고서·제안·사업계획", 1, "2026-10-22"], ["2026-10-19", 9900, "프리미엄", "K-뷰티 글로벌 시장 진출 전략 사업계획서 PPT", 0, 1, "보고서·제안·사업계획", 1, "2026-10-23"], ["2026-10-19", 9900, "유료", "제품 개발 로드맵 간트차트 템플릿", 1, 0, "다이어그램·인포그래픽", 1, "2026-10-24"], ["2026-10-19", 9900, "프리미엄", "이직, 취업 준비를 위한 포트폴리오 및 자기소개서 PPT ( 그레이 퍼플의 심플 모던한 디자인)", 1, 0, "교육·HR", 1, "2026-10-25"], ["2026-10-26", 9900, "프리미엄", "인플루언서 크리에이터 협업 제안서 PPT 템플릿 | 브랜드 캠페인 기획서", 0, 1, "보고서·제안·사업계획", 1, "2026-10-26"], ["2026-10-26", 11000, "유료", "방사 주기형 인포그래픽 PPT 템플릿 (전자상거래)", 0, 1, "다이어그램·인포그래픽", 1, "2026-10-26"]];
+const YF_SAVED=[["2026-09-21",9900,"프리미엄","의료 투자 제안서 PPT 템플릿 (비즈니스 투자 분석용)",1,0,"보고서·제안·사업계획",1,"",""],["2026-09-21",9900,"유료","프로젝트 타임라인 (Project Timeline)",1,0,"다이어그램·인포그래픽",1,"",""],["2026-09-21",9900,"유료","예수님의 사랑 (Christ) 피피티 배경",0,1,"배경·디자인",1,"",""],["2026-09-21",11000,"유료","심플 타임라인 파워포인트 Infographic 템플릿",0,1,"다이어그램·인포그래픽",1,"",""],["2026-09-21",11000,"유료","추석 일러스트 Powerpoint 배경",0,1,"시즌·행사",1,"",""],["2026-09-21",110000,"유료","가을 사내 체육대회 운영계획서 PPT 템플릿 행사기획안 양식",0,1,"시즌·행사",1,"",""],["2026-09-21",110000,"프리미엄","등산(Hiking) 파워포인트 배경 템플릿",0,1,"배경·디자인",1,"",""],["2026-09-28",9900,"프리미엄","경영 실적 성과 분석 보고서 PPT 템플릿 (Analysis Report)",0,1,"보고서·제안·사업계획",1,"","1MP"],["2026-09-28",9900,"유료","AI 투자와 위험요인 경제 트렌드 리포트 템플릿",0,1,"트렌드리포트",1,"","1WB"],["2026-09-28",9900,"유료","행복한 크리스마스 PPT 배경 템플릿",0,1,"시즌·행사",1,"","1MP"],["2026-09-28",9900,"프리미엄","AI 자동화 시스템 구축 솔루션 제안서 PPT - 다크톤 오렌지 포인트 비즈니스 템플릿",0,1,"보고서·제안·사업계획",1,"","1MP"],["2026-09-28",110000,"프리미엄","1,000장 34세트 | 실전 비즈니스 PPT 템플릿 보고서 제안서 사업계획서 회사소개서 파워포인트 양식",0,1,"보고서·제안·사업계획",1,"","1YP"],["2026-09-28",9900,"프리미엄","신년도 사업계획서 파워포인트 템플릿 - 2026년 성장 가속과 가치 혁신 전략",0,1,"보고서·제안·사업계획",1,"","1MP"],["2026-09-28",110000,"프리미엄","성과 창출을 위한 하반기 개선전략 보고서 PPT 템플릿",0,1,"보고서·제안·사업계획",1,"2026-10-01","1YP"],["2026-09-28",9900,"프리미엄","2026 하반기 중소벤처기업부 지원사업 통합 사업계획서 PPT 템플릿",0,1,"보고서·제안·사업계획",1,"2026-10-01","1MP"],["2026-09-28",110000,"프리미엄","크루즈 여행(Ocean) 파워포인트 디자인",0,1,"배경·디자인",1,"2026-10-01","1YP"],["2026-09-28",9900,"프리미엄","휴먼 어드밴티지 프리미엄 트렌드 리포트: AI와 인간의 협업 전략",1,0,"트렌드리포트",1,"2026-10-01","1MP"],["2026-09-28",9900,"프리미엄","사진교체형 회사 조직도 인포그래픽 40장 세트",1,0,"다이어그램·인포그래픽",1,"2026-10-02","1MP"],["2026-09-28",110000,"유료","다문화 학교, 교육 파워포인트 템플릿",0,1,"교육·HR",1,"2026-10-02","1YP"],["2026-09-28",9900,"유료","2026년 미국 경제 전망 및 글로벌 트렌드리포트 PPT 템플릿",1,0,"트렌드리포트",1,"2026-10-02","1MP"],["2026-09-28",11000,"유료","클리닉 플랫 아이콘 2종세트",1,0,"다이어그램·인포그래픽",1,"2026-10-04","1MB"],["2026-09-28",9900,"프리미엄","임직원 AI 역량 강화 및 교육 프로그램 PPT 템플릿",0,1,"교육·HR",1,"2026-10-04","1MP"],["2026-10-05",9900,"프리미엄","전략적 M&amp;A 인수합병 기회 제안서 PPT 피치덱 템플릿 (기업 인수 투자 전략)",1,0,"보고서·제안·사업계획",1,"2026-10-05","1MP"],["2026-10-05",9900,"유료","2026 아이치 나고야 아시안게임 마케팅 캠페인 기획안 PPT 템플릿",0,1,"시즌·행사",1,"2026-10-06","1WB"],["2026-10-05",9900,"프리미엄","Style 주얼리 의류 브랜드 포트폴리오 감성 디자인 PPT 템플릿",1,0,"배경·디자인",1,"2026-10-06","1MP"],["2026-10-05",9900,"유료","시티 런 페스타 홍보 및 모집 프레젠테이션 PPT 템플릿",1,0,"시즌·행사",1,"2026-10-07","1MP"],["2026-10-05",9900,"유료","가을 행사 안내 파워포인트 템플릿 (문화·체험 중심)",0,1,"시즌·행사",1,"2026-10-07","1MP"],["2026-10-05",9900,"프리미엄","2026 최신 사업계획서·제안서·보고서용 재무 &amp; IR차트 특화 200장 PPT 템플릿",1,0,"보고서·제안·사업계획",1,"2026-10-07","1MP"],["2026-10-05",11000,"유료","2026년 미국 경제 전망 및 글로벌 트렌드리포트 PPT 템플릿",1,0,"트렌드리포트",1,"2026-10-07","1MB"],["2026-10-05",11000,"무료","비즈니스 성과 분석을 위한 하반기 실적 보고서 PPT 템플릿",0,1,"보고서·제안·사업계획",1,"2026-10-08","1MB"],["2026-10-05",11000,"프리미엄","글로벌 화장품 제조업 투자 제안서 (성장 로드맵 포함)",0,1,"보고서·제안·사업계획",1,"2026-10-08","1ME"],["2026-10-05",9900,"유료","3D 원형 그래프 Diagram 파워포인트 (Music)",1,0,"다이어그램·인포그래픽",1,"2026-10-09","1WB"],["2026-10-05",9900,"유료","하반기 공개채용 설명회 운영 계획서 PPT 템플릿 인사 관리 파워포인트 양식",0,1,"교육·HR",1,"2026-10-10","1MP"],["2026-10-05",9900,"프리미엄","실무 적용 기하학 패턴 상반기 재무 실적 보고서 PPT 템플릿",1,0,"보고서·제안·사업계획",1,"2026-10-11","1MP"],["2026-10-05",9900,"유료","기업소개서 비즈니스 파워포인트 템플릿",1,0,"보고서·제안·사업계획",1,"2026-10-11","1WB"],["2026-10-05",9900,"프리미엄","신입 및 경력사원 온보딩 교육 계획서 (체계적 관리 및 성장 지원)",1,0,"교육·HR",1,"2026-10-11","1MP"],["2026-10-12",11000,"무료","2026 월드컵 응원 마케팅 전략 PPT 템플릿 무료 다운로드 | 스포츠 마케팅 캠페인 기획서 양식",1,0,"시즌·행사",1,"2026-10-12","1MB"],["2026-10-12",9900,"유료","내장산 단풍축제 운영계획서 (안전하고 체계적인 축제 운영을 위한 템플릿)",0,1,"시즌·행사",1,"2026-10-12","1MP"],["2026-10-12",11000,"유료","리스트형 세미 피라미드 다이어그램 PPT 슬라이드(5Steps)",1,0,"다이어그램·인포그래픽",1,"2026-10-12","1MB"],["2026-10-12",11000,"유료","제품 개발 로드맵 간트차트 템플릿",1,0,"다이어그램·인포그래픽",1,"2026-10-13","1MB"],["2026-10-12",9900,"프리미엄","건설 그룹 세로형 파워포인트 건설 산업 동향 및 지명원 PPT",1,0,"보고서·제안·사업계획",1,"2026-10-14","1MP"],["2026-10-12",9900,"프리미엄","3분기 실적 보고 및 4분기 전략 제안서 PPT 프레젠테이션 템플릿",1,0,"보고서·제안·사업계획",1,"2026-10-15","1MP"],["2026-10-12",9900,"유료","팀 구조 조직도 다이어그램 PPT 슬라이드",0,1,"다이어그램·인포그래픽",1,"2026-10-15","1WB"],["2026-10-12",110000,"유료","SWOT 분석형 PPT Infographic",1,0,"다이어그램·인포그래픽",1,"2026-10-15","1YP"],["2026-10-19",11000,"유료","피쉬본 인포그래픽",0,1,"다이어그램·인포그래픽",1,"2026-10-19","1MB"],["2026-10-19",178200,"프리미엄","연간 실적 종합 보고서 PPT 템플릿 : 사업 성과 분석 양식",0,1,"보고서·제안·사업계획",1,"2026-10-19","2YP"],["2026-10-19",11000,"유료","미니벨로 자전거 (스포츠) 피피티 배경",1,0,"배경·디자인",1,"2026-10-20","1MB"],["2026-10-19",9900,"유료","애자일 프로젝트 플랜 (Agile Project Plan)",0,1,"다이어그램·인포그래픽",1,"2026-10-20","1WB"],["2026-10-19",9900,"프리미엄","신입 및 경력사원 온보딩 교육 계획서 (체계적 관리 및 성장 지원)",0,1,"교육·HR",1,"2026-10-21","1MP"],["2026-10-19",9900,"무료","한국의 미를 담은 무료 PPT 배경 템플릿 및 자료",1,0,"배경·디자인",1,"2026-10-21","1WB"],["2026-10-19",11000,"유료","전략 비즈니스 목표달성 보고서 PPT 템플릿",0,1,"보고서·제안·사업계획",1,"2026-10-21","1MB"],["2026-10-19",110000,"프리미엄","연간 실적 종합 보고서 PPT 템플릿 : 사업 성과 분석 양식",0,1,"보고서·제안·사업계획",1,"2026-10-21","1YP"],["2026-10-19",110000,"프리미엄","2026년 1분기 경영실적 및 전략 보고서 (수익성 개선 및 성장 전망)",0,1,"보고서·제안·사업계획",1,"2026-10-21","1YP"],["2026-10-19",110000,"프리미엄","2026 AI 검색 트렌드 리포트: 생성형 AI의 영향과 비즈니스 기회",0,1,"트렌드리포트",1,"2026-10-22","1YP"],["2026-10-19",110000,"프리미엄","사업계획 및 예산 운영계획서 PPT 템플릿 전략 실행계획 양식",0,1,"보고서·제안·사업계획",1,"2026-10-22","1YP"],["2026-10-19",9900,"프리미엄","K-뷰티 글로벌 시장 진출 전략 사업계획서 PPT",0,1,"보고서·제안·사업계획",1,"2026-10-23","1MP"],["2026-10-19",9900,"유료","제품 개발 로드맵 간트차트 템플릿",1,0,"다이어그램·인포그래픽",1,"2026-10-24","1MP"],["2026-10-19",9900,"프리미엄","이직, 취업 준비를 위한 포트폴리오 및 자기소개서 PPT ( 그레이 퍼플의 심플 모던한 디자인)",1,0,"교육·HR",1,"2026-10-25","1MP"],["2026-10-26",9900,"프리미엄","인플루언서 크리에이터 협업 제안서 PPT 템플릿 | 브랜드 캠페인 기획서",0,1,"보고서·제안·사업계획",1,"2026-10-26","1MP"],["2026-10-26",11000,"유료","방사 주기형 인포그래픽 PPT 템플릿 (전자상거래)",0,1,"다이어그램·인포그래픽",1,"2026-10-26","1MB"]];
 function start(RAW,YF,info,TASKS){
 // 진행 및 예정업무: 선택한 주차에 기입한 업무 (진행중 먼저, 예정일 순)
 // 주요 내용: 4개 사이트 전체 기준으로 자동 작성
@@ -637,7 +678,7 @@ function render(){
         `<text x="${x+bw/2}" y="${y(v)-7}" text-anchor="middle" font-size="12" fill="${on?'var(--fg)':'var(--sub)'}" font-weight="${on?700:500}">${amt(v)}</text>`+
         `<text x="${x+bw/2}" y="${H-22}" text-anchor="middle" font-size="11" fill="${on?'var(--fg)':'var(--mute)'}" font-weight="${on?600:400}">${wkLabel(wk).split('~')[0]}</text>`+
         `<text x="${x+bw/2}" y="${H-8}" text-anchor="middle" font-size="10" fill="var(--mute)">~${wkLabel(wk).split('~')[1]}</text>`}).join('');
-    return`<article class="card" style="display:flex;flex-direction:column"><div class="ch"><h3><span class="dot" style="--c:${s.hex}"></span>${s.name.replace('씨티미디어 ','')}</h3></div>
+    return`<article class="card" style="display:flex;flex-direction:column"><div class="ch"><h3>${s.name.replace('씨티미디어 ','')}</h3></div>
       <div class="cb" style="margin-top:auto"><svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block" role="img" aria-label="${s.name} 주간 결제금액">${g}</svg></div></article>`}).join('');
 
   renderYF(w,pw);
@@ -663,26 +704,32 @@ function renderYF(w,pw){
   const v=sum(l),pv=sum(p),n=l.length,pn=p.length;
   const big=l.filter(x=>x[1]>=110000),bigV=sum(big),pbig=cnt(p,x=>x[1]>=110000);
   const nw=cnt(l,x=>typ(x)==='신규'),pnw=cnt(p,x=>typ(x)==='신규');
-  const pre=cnt(l,x=>x[2]==='프리미엄');
+  // 목표 달성률: 주간 20건, 월간 = 20건 × 그 달 월요일 수 (선택 주차의 끝날까지 누적)
+  {const GW=20,ms=w.slice(0,7),we=new Date(+pd(w)+6*864e5).toISOString().slice(0,10);
+   const yy=+ms.slice(0,4),mm=+ms.slice(5),dim=new Date(Date.UTC(yy,mm,0)).getUTCDate();let mon=0;for(let d=1;d<=dim;d++)if(new Date(Date.UTC(yy,mm-1,d)).getUTCDay()===1)mon++;
+   const GM=GW*mon,mn=YF.filter(x=>String(x[0]).slice(0,7)===ms&&x[0]<=we).length;
+   const bar=(lb,c,t,sub)=>{const r=t?c/t*100:0;return`<div class="gi"><div class="gt"><span>${lb}</span><b class="${r>=100?'ok':''}">${r.toFixed(0)}%</b></div><div class="gb"><span style="width:${Math.min(100,r)}%"></span></div><div class="gnote"><b>${c}</b>건 / 목표 ${t}건 · ${sub}</div></div>`};
+   document.getElementById('goal').innerHTML=bar('주간',n,GW,n>=GW?'목표 달성':`${GW-n}건 남음`)+bar(`월간 (${mm}월 누적)`,mn,GM,`${mm}월 ${we.slice(5)===ms.slice(5)?'':''}${+we.slice(8)}일까지`);}
+  const pre=cnt(l,x=>x[9]?['1YP','2YP','1ME','1MP'].includes(String(x[9]).toUpperCase()):x[2]==='프리미엄');
 
   // 전체 성과와 같은 카드 형식 (아이콘 없음)
   const arr=(c,pc)=>pw==null?'<span>전주 비교 없음</span>':(c===pc?'<span>전주와 같음</span>':`<span class="${c>pc?'up':'dn'}">${c>pc?'+':'-'}${Math.abs(c-pc)}건</span>`);
   const k2=(l,c,pc,sub)=>`<article class="card k2"><div class="kl">${l}</div><div class="kv"><b>${c}</b><u>건</u></div><div class="kd">${arr(c,pc)} · ${sub}</div></article>`;
-  const ppre=cnt(p,x=>x[2]==='프리미엄');
+  const ppre=cnt(p,x=>x[9]?['1YP','2YP','1ME','1MP'].includes(String(x[9]).toUpperCase()):x[2]==='프리미엄');
   // 예스폼 전체 실결제 금액(수수료 제외)과 파워포인트 비중 — 7일치가 모두 있는 주만 계산
   const ytw=wk=>{if(!wk)return null;const d=YFT.filter(x=>monday(x[0])===wk);return d.length>=7?d.reduce((a,x)=>a+x[1],0):null};
   const yt=ytw(w),pyt=ytw(pw),share=yt?v/yt*100:null,pshare=pyt?pv/pyt*100:null;
   const kp=(l,val,u,d)=>`<article class="card k2"><div class="kl">${l}</div><div class="kv"><b>${val}</b><u>${u}</u></div><div class="kd">${d}</div></article>`;
-  const ytCard=yt==null?kp('예스폼 전체 실결제 금액','-','','이 주는 실결제 자료 없음'):kp('예스폼 전체 실결제 금액',won(yt),'원',pyt?`<span class="${yt>=pyt?'up':'dn'}">${yt>=pyt?'+':'-'}${Math.abs(pct(yt,pyt)).toFixed(1)}%</span> · 지난주 ${won(pyt)}원`:'전주 비교 없음');
-  const shCard=share==null?kp('파워포인트 매출 비중','-','','이 주는 실결제 자료 없음'):kp('파워포인트 매출 비중',share.toFixed(2),'%',(pshare!=null?`지난주 ${pshare.toFixed(2)}%`:'전주 비교 없음'));
+  const ytCard=yt==null?kp('예스폼 전체 매출 <small class="gsub">수수료 제외</small>','-','','이 주는 실결제 자료 없음'):kp('예스폼 전체 매출 <small class="gsub">수수료 제외</small>',won(yt),'원',pyt?`<span class="${yt>=pyt?'up':'dn'}">${yt>=pyt?'+':'-'}${Math.abs(pct(yt,pyt)).toFixed(1)}%</span> · 지난주 ${won(pyt)}원`:'전주 비교 없음');
+  const shCard=share==null?kp('예스폼 파워포인트 비중','-','','이 주는 실결제 자료 없음'):kp('예스폼 파워포인트 비중',share.toFixed(2),'%',(pshare!=null?`지난주 ${pshare.toFixed(2)}%`:'전주 비교 없음'));
   const adW=wk=>{if(!wk)return null;const l=ADSW.filter(x=>monday(x[0])===wk);return l.length?{v:l.reduce((a,x)=>a+x[2],0),part:l.some(x=>x[0]!==wk)}:null};
   const ad0=adW(w),ad1=adW(pw),usdW=v=>'$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  const adCard=ad0==null?kp('구글 애드센스 매출','-','','이 주는 데이터 없음'):kp('구글 애드센스 매출',usdW(ad0.v),'',(ad1?`<span class="${ad0.v>=ad1.v?'up':'dn'}">${ad0.v>=ad1.v?'+':'-'}${Math.abs(pct(ad0.v,ad1.v)).toFixed(1)}%</span> · 지난주 ${usdW(ad1.v)}`:'전주 비교 없음')+(ad0.part?' · 일부 기간':''));
-  document.getElementById('yfTop').innerHTML=ytCard+shCard+adCard;
+  const adCard=ad0==null?kp('구글 애드센스 <small class="gsub">슬라이드멤버스</small>','-','','이 주는 데이터 없음'):kp('구글 애드센스 <small class="gsub">슬라이드멤버스</small>',usdW(ad0.v),'',(ad1?`<span class="${ad0.v>=ad1.v?'up':'dn'}">${ad0.v>=ad1.v?'+':'-'}${Math.abs(pct(ad0.v,ad1.v)).toFixed(1)}%</span> · 지난주 ${usdW(ad1.v)}`:'전주 비교 없음')+(ad0.part?' · 일부 기간':''));
+  document.getElementById('yfTop').innerHTML=ytCard+shCard;document.getElementById('adTop').innerHTML=adCard;
   document.getElementById('yfKpis').innerHTML=
     k2('신규 결제',nw,pnw,`재결제 ${cnt(l,x=>typ(x)==='재결제')}건`)+
     k2('연간 결제 (110,000원 이상)',big.length,pbig,`매출의 ${v?(bigV/v*100).toFixed(1):0}%`)+
-    k2('프리미엄 결제',pre,ppre,`전체 결제의 ${n?(pre/n*100).toFixed(0):0}%`);
+    k2('프리미엄 가입',pre,ppre,`전체 결제의 ${n?(pre/n*100).toFixed(0):0}%`);
 
   const ins=[];
   ins.push(['매출',pw?`${won(v)}원, 전주보다 ${dl(pct(v,pv),'').trim()}. 결제수 ${pn}건 → ${n}건`:`${won(v)}원, 결제 ${n}건`]);
@@ -711,11 +758,13 @@ function renderYF(w,pw){
   document.getElementById('yfMix').innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="min-width:380px;display:block" role="img" aria-label="주차별 결제금액 구성">${g}</svg>`;
   document.getElementById('yfMixLg').innerHTML=PRICE.map(([pr,lb,col])=>`<span><i style="background:${col}"></i>${lb}</span>`).join('');
 
-  const yg={};l.forEach(x=>{const k=x[3]+'|'+typ(x),g=yg[k]||(yg[k]={t:x[3],f:x[2],ty:typ(x),n:0,v:0,mx:0});g.n+=x[7]||1;g.v+=x[1];g.mx=Math.max(g.mx,x[1])});
+  const PASS=c=>{c=String(c||'').toUpperCase();if(c==='1MP')return '월정액';if(c==='1ME')return '기업월정액';const m=c.match(/^(\d*)([YMW])/);if(!m)return null;const n=m[1]||'1';return m[2]==='Y'?(n==='1'?'1년':n+'년'):m[2]==='M'?n+'개월':'1주'};
+  const PCLS={'월정액':'pm','1년':'py','2년':'p2','1개월':'p1','1주':'pw','기업월정액':'pe'};const PFULL={'월정액':'프리미엄 월정액','1년':'프리미엄 1년','2년':'프리미엄 2년','1개월':'유료 1개월','1주':'유료 1주일','기업월정액':'기업 월정액'};
+  const yg={};l.forEach(x=>{const ps=PASS(x[9]),k=x[3]+'|'+typ(x)+'|'+ps,g=yg[k]||(yg[k]={t:x[3],f:x[2],ty:typ(x),ps,code:x[9]||'',n:0,v:0,mx:0});g.n+=x[7]||1;g.v+=x[1];g.mx=Math.max(g.mx,x[1])});
   const yr=Object.values(yg).sort((a,b)=>b.v-a.v||b.n-a.n);
   document.getElementById('yfTblLabel').textContent=`${yr.length}종 · 결제 ${n}건 · 금액 높은 순`;
-  document.getElementById('yfTbl').innerHTML=`<thead><tr><th>제목</th><th>유/무료</th><th>유형</th><th>건수</th><th>금액</th></tr></thead><tbody>`+
-   yr.map(g=>`<tr><td class="tl">${g.t}</td><td>${g.f}</td><td class="${g.ty==='신규'?'hl':''}">${g.ty}</td><td>${g.n}건</td><td class="${g.mx>=110000?'hl':''}">${won(g.v)}</td></tr>`).join('')+'</tbody>';
+  document.getElementById('yfTbl').innerHTML=`<thead><tr><th>제목</th><th>파일 등급</th><th>유형</th><th>건수</th><th>금액</th><th>가입 유형</th></tr></thead><tbody>`+
+   yr.map(g=>`<tr><td class="tl">${g.t}</td><td>${g.f}</td><td class="${g.ty==='신규'?'hl':''}">${g.ty}</td><td>${g.n}건</td><td class="${g.mx>=110000?'hl':''}">${won(g.v)}</td><td>${g.ps?`<span class="pass ${PCLS[g.ps]||''}" title="${PFULL[g.ps]||g.code}">${g.ps==='기업월정액'?'월정액':g.ps}</span>`:'<span style="color:var(--mute)">-</span>'}</td></tr>`).join('')+'</tbody>';
   // 씨티미디어 스마트스토어 결제 콘텐츠 (상품별)
   const gm={};SSP.filter(x=>monday(x[0])===w).forEach(x=>{const g=gm[x[1]]||(gm[x[1]]=[x[1],0,0,0]);g[1]+=x[2];g[2]+=x[3];g[3]+=x[4]});
   const sl=Object.values(gm).sort((a,b)=>b[3]-a[3]||b[1]-a[1]);
@@ -726,7 +775,7 @@ function renderYF(w,pw){
 }
 
 const wn=document.getElementById('weeks');
-wn.innerHTML=WEEKS.map((w,k)=>({w,k})).reverse().map(({w,k})=>`<option value="${k}" ${k===wi?'selected':''}>${pd(w).getUTCFullYear()}년 ${wkLabel(w)}</option>`).join('');
+wn.innerHTML=WEEKS.map((w,k)=>({w,k})).reverse().map(({w,k})=>`<option value="${k}" ${k===wi?'selected':''}>${(()=>{const m=pd(w),e=new Date(+m+6*864e5),f=d=>`${d.getUTCMonth()+1}. ${d.getUTCDate()}`;return`${m.getUTCFullYear()}. ${f(m)} ~ ${f(e)}`})()}</option>`).join('');
 wn.onchange=e=>{wi=+e.target.value;render()};
 render();
 
