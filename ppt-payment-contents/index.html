@@ -14,7 +14,7 @@ h1{font-size:20px;margin:0 0 4px}.desc{color:var(--sub);font-size:12px;margin-bo
 #tabs{appearance:none;-webkit-appearance:none;border:1px solid #dcdfe4;background:#fff;border-radius:8px;padding:10px 40px 10px 16px;font:inherit;font-size:14px;font-weight:700;color:#1f2733;cursor:pointer;min-width:190px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border-radius:12px;overflow:hidden}
-.kpi{background:#fff;padding:16px 18px}.kpi .k{color:#555;font-size:16px;font-weight:700}.kpi .v{font-size:22px;font-weight:700;margin-top:4px}.kpi .s{display:none}
+.kpi{background:#fff;padding:14px 18px}.kpi .k{color:#555;font-size:14px;font-weight:700}.kpi .v{font-size:20px;font-weight:700;margin-top:2px}.kpi .s{display:none}
 .mix{padding:16px 18px;border-top:1px solid var(--line)}.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:8px 0 10px}
 .lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:#555}.lg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
 .hd{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);gap:8px;flex-wrap:wrap}
@@ -40,14 +40,14 @@ th.gh{border-left:1px solid #f0f1f4}td.gc{border-left:1px solid #f4f5f7}
 th.sel,td.sel{background:#f6f8fc}th.sel{color:#1f2733;font-weight:700}
 .pill{display:inline-block;min-width:34px;padding:3px 8px;border-radius:12px;font-weight:700;font-size:13px}
 .p0{background:#e3ebfa;color:#2f5bb7}.p1{background:#ede6fb;color:#6b4bc4}.p2{background:#e9f5dc;color:#4f8a1f}.zero{color:#d0d3d8}
-.hr{display:grid;grid-template-columns:150px 1fr 120px;grid-template-areas:'l t v' '. s s';align-items:center;column-gap:16px;padding:10px 0;border-bottom:1px dashed #eef0f3}.hr:last-child{border-bottom:0}
-.hl{grid-area:l}.hl b{display:block;font-size:16px}.hl small{color:#9aa0a8;font-size:12px}
-.ht{grid-area:t;height:16px;background:#f1f3f6;border-radius:8px;overflow:hidden;display:flex}.hf{height:100%;border-radius:0 8px 8px 0;position:relative;z-index:2}.hf+.hf{z-index:1;box-sizing:content-box;padding-left:8px;margin-left:-8px}
+.hr{display:grid;grid-template-columns:150px 1fr 120px;grid-template-areas:'l t v' '. s s';align-items:center;column-gap:16px;padding:7px 0;border-bottom:1px dashed #eef0f3}.hr:last-child{border-bottom:0}
+.hl{grid-area:l}.hl b{display:block;font-size:14px}.hl small{color:#9aa0a8;font-size:11px}
+.ht{grid-area:t;height:12px;background:#f1f3f6;border-radius:6px;overflow:hidden;display:flex}.hf{height:100%;border-radius:0 6px 6px 0;position:relative;z-index:2}.hf+.hf{z-index:1;box-sizing:content-box;padding-left:6px;margin-left:-6px}
 .p0f{background:#3b6fd6}.p1f{background:#8b6be0}.p2f{background:#f0a040}
-.hv{grid-area:v;text-align:right;color:#666;font-size:13px}.hv b{font-size:18px;color:#1f2733;margin-right:4px}
-.hs{grid-area:s;font-size:13px;color:#666;margin-top:4px;display:flex;gap:18px;flex-wrap:wrap}.hs b{color:#1f2733}.hs i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.hv{grid-area:v;text-align:right;color:#666;font-size:12px}.hv b{font-size:16px;color:#1f2733;margin-right:4px}
+.hs{grid-area:s;font-size:12px;color:#666;margin-top:3px;display:flex;gap:18px;flex-wrap:wrap}.hs b{color:#1f2733}.hs i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 @media(max-width:600px){.hr{grid-template-columns:90px 1fr 90px}}
-.kwg{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border-radius:0 0 12px 12px;overflow:hidden}@media(max-width:800px){.kwg{grid-template-columns:repeat(2,1fr)}}
+.kwg{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border-radius:0 0 12px 12px;overflow:hidden}@media(max-width:1000px){.kwg{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.kwg{grid-template-columns:repeat(2,1fr)}}
 .kr{background:#fff;padding:14px 18px;display:flex;flex-direction:column;gap:4px}.kl{font-size:13px;color:#555}.kr b{font-size:22px;color:#1f2733}.kbt{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;flex-wrap:wrap}.kpc{font-size:12px;color:#9aa0a8;text-align:right;line-height:1.5;margin-left:auto}.kpc em{font-style:normal}.kpc.hi em{color:#2f6ad9;font-weight:700}
 .kr b small{font-size:13px;color:#8a8f98;margin-left:2px;font-weight:400}
 .kt{height:12px;background:#f1f3f6;border-radius:6px;overflow:hidden}.kt i{display:block;height:100%;background:#4a86f0;border-radius:6px}
@@ -83,15 +83,15 @@ function summary(o,label,extra){
   <div class="kpi"><div class="k">매출</div><div class="v">${fmt(o.amt)}원</div><div class="s">${extra||''}</div></div>
   <div class="kpi"><div class="k">결제수</div><div class="v">${fmt(tot)}건</div><div class="s">객단가 ${fmt(Math.round(o.amt/tot))}원</div></div>
   ${grp.map(g=>`<div class="kpi"><div class="k">${g[0]==='월정액'?'월정액수':g[0]+' 결제수'}</div><div class="v">${fmt(g[1])}건</div><div class="s">${(g[1]/tot*100).toFixed(1)}%</div></div>`).join('')}
-  </div><div class="mix"><div style="font-size:15px;font-weight:700;color:#555;margin-bottom:4px">결제 유형별 비중</div>
+  </div><div class="mix"><div style="font-size:14px;font-weight:700;color:#555;margin-bottom:2px">결제 유형별 비중</div>
   ${[['월정액','매월 자동결제',[['프리미엄',o.pm,'#4a86f0'],['기업',o.em,'#b9d0f9']]],['연간','한 번에 1년·2년 결제',[['1년',o.yp+o.yb,'#9466e0'],['2년',o.y2,'#d4c3f4']]],['단기','1주일·1개월만 결제',[['1주일',o.wb,'#76b041'],['1개월',o.mb,'#c6e2a8']]]].map(r=>{const s=r[2].reduce((a,x)=>a+x[1],0),p=s/tot*100;return `<div class="hr"><div class="hl"><b>${r[0]}</b><small>${r[1]}</small></div><div class="ht">${r[2].filter(x=>x[1]).map(x=>`<div class="hf" style="width:${x[1]/tot*100}%;background:${x[3-1]}" title="${x[0]} ${x[1]}건"></div>`).join('')}</div><div class="hv"><b>${p.toFixed(1)}%</b> ${fmt(s)}건</div><div class="hs">${r[2].map(x=>`<span><i style="background:${x[2]}"></i>${x[0]} <b>${fmt(x[1])}건</b> (${tot?(x[1]/tot*100).toFixed(1):0}%)</span>`).join('')}</div></div>`}).join('')}</div></div>`;
 }
 function mix(f){const v=G.map(g=>[g[0],g[1](f),g[2]]),top=v.slice().sort((a,b)=>b[1]-a[1])[0];
   const tip=T.filter(t=>f[t[0]]).map(t=>t[1]+' '+f[t[0]]).join(' · ');
   return `<div class="mx" title="${tip}"><span class="mt" style="color:${top[2]==='#8fb3f0'?'#3b6fc9':top[2]==='#f0a040'?'#c06a0e':top[2]}">${top[0]} ${Math.round(top[1]/f.n*100)}%</span><span class="mb">${v.filter(x=>x[1]).map(x=>`<i style="flex:${x[1]};background:${x[2]}"></i>`).join('')}</span></div>`}
-const KW=[['대량 세트','N장/세트',26,166,104,54,8,4],['회사소개서','',14,91,54,18,19,4],['사업계획서','',25,129,77,45,7,3],['포트폴리오·자소서','',14,45,35,7,3,3],['조직도','',17,92,35,17,40,2],['2026·신년도','',87,305,159,92,54,2],['제안서·피치덱','',59,147,84,50,13,1],['보고서','실적·전략·경영',108,276,151,92,33,1],['시즌·행사','',45,66,31,12,23,1],['교육·강의','',22,34,11,6,17,1]];
+const KW=[["세트 (공식 11종)", "", 11, 0, 98, 0, 0, 0], ["회사소개서", "", 14, 0, 54, 0, 0, 0], ["사업계획서", "", 20, 0, 72, 0, 0, 0], ["포트폴리오·자소서·이력서", "", 14, 0, 35, 0, 0, 0], ["조직도", "", 14, 0, 31, 0, 0, 0], ["2026·신년도", "", 87, 0, 159, 0, 0, 0], ["제안서·피치덱", "", 51, 0, 80, 0, 0, 0], ["보고서", "", 104, 0, 150, 0, 0, 0], ["시즌·행사", "", 44, 0, 30, 0, 0, 0], ["배경·표지 디자인", "", 73, 0, 29, 0, 0, 0]];
 function kwHtml(){const r=KW.slice().sort((a,b)=>b[4]-a[4]),mx=r[0][4];
- return `<div class="card"><div class="hd"><b>주제별 월정액 결제수</b><span>제목 키워드 기준 · 한 서식이 여러 주제에 중복될 수 있음 · <em style="font-style:normal;color:#2f6ad9;font-weight:700">파란색</em> = 서식 1개당 월정액 2건 이상</span></div><div class="kwg">${r.map(x=>`<div class="kr"><span class="kl">${x[0]}</span><div class="kbt"><b>${x[4]}<small>건</small></b><span class="kpc${x[4]/x[2]>=2?' hi':''}">서식 ${x[2]}개<br>1개당 <em>${(x[4]/x[2]).toFixed(1)}건</em></span></div></div>`).join('')}</div></div>`}
+ return `<div class="card"><div class="hd"><b>주제별 월정액 결제수</b><span>제목 키워드 기준 · 한 서식이 여러 주제에 중복될 수 있음 · <em style="font-style:normal;color:#2f6ad9;font-weight:700">파란색</em> = 서식 1개당 월정액 2건 이상</span></div><div class="kwg">${r.map(x=>`<div class="kr"><span class="kl">${x[0]}</span><div class="kbt"><b>${x[4]}<small>건</small></b><span class="kpc${x[4]/x[2]>=2?' hi':''}">서식 ${x[2]}개<br>1개당 <em>${(Math.round(x[4]/x[2]*100+1e-9)/100).toFixed(2)}건</em></span></div></div>`).join('')}</div></div>`}
 let cur='y',ft=-1;
 function show(k,f){
   if(k!==cur)ft=-1;cur=k;if(f!==undefined)ft=f;
