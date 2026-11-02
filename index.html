@@ -440,10 +440,16 @@ function parseUnified(j){
   (j.mfp||[]).forEach(r=>{const id=String(r[7]||'').trim(),k=r[1]==='예스폼 파워포인트'?'p':r[1]==='슬라이드멤버스'?'s':r[1]==='스마트스토어'?'c':null;if(id&&k)LKM[k][nk(r[4])]=id});
 (j.mfp||[]).forEach(r=>{const m=r[0],t=String(r[4]||'');if(!t)return;const ord=num(r[3]);
     if(r[1]==='예스폼 파워포인트'){const g=P.fp[m]||(P.fp[m]={p:[],u:[]});(r[2]==='프리미엄'?g.p:g.u).push([t,num(r[5]),num(r[6]),ord])}
-    else if(r[1]==='슬라이드멤버스'){const g=S.fp[m]||(S.fp[m]={p:[],u:[]});(r[2]==='프리미엄'?g.p:g.u).push([t,num(r[5]),ord])}
+    else if(r[1]==='슬라이드멤버스'){const k=String(r[2]||'').trim().toLowerCase();const isP=k==='프리미엄'||k.startsWith('prem'),isU=k==='유료'||k==='유료·무료'||k.startsWith('charge');if(!isP&&!isU)return;const g=S.fp[m]||(S.fp[m]={p:[],u:[]});(isP?g.p:g.u).push([t,num(r[5]),(g.p.length+g.u.length)])}
     else if(r[1]==='스마트스토어'||r[1]==='크몽'){const g=C.fp[m]||(C.fp[m]={s:[],k:[]});(r[1]==='크몽'?g.k:g.s).push([t,num(r[5]),num(r[6]),ord])}});
   const so=a=>a.sort((x,y)=>x[x.length-1]-y[y.length-1]).slice(0,10).map(x=>x.slice(0,-1));
-  Object.values(P.fp).forEach(g=>{g.p=so(g.p);g.u=so(g.u)});Object.values(S.fp).forEach(g=>{g.p=so(g.p);g.u=so(g.u)});Object.values(C.fp).forEach(g=>{g.s=so(g.s);g.k=so(g.k)});
+  Object.values(P.fp).forEach(g=>{g.p=so(g.p);g.u=so(g.u)});
+  // 2026-10부터 예스폼 파워포인트 첫결제 TOP 10은 W2(일간 결제내역)에서 자동 집계 — M5 입력 불필요
+  {const agg={};(j.yf||[]).forEach(x=>{const d=String(x[8]||'');if(!d)return;const m=d.slice(0,7);if(m<'2026-10')return;
+     const t=String(x[3]||'').trim();if(!t)return;const pr=String(x[2]).trim()==='프리미엄';const A=agg[m]||(agg[m]={p:{},u:{}});const G=pr?A.p:A.u;
+     const g=G[t]||(G[t]=[t,0,0]);g[1]+=num(x[7])||1;g[2]+=num(x[1])});
+   const top=o=>Object.values(o).sort((a,b)=>b[1]-a[1]||b[2]-a[2]).slice(0,10);
+   Object.entries(agg).forEach(([m,A])=>{P.fp[m]={p:top(A.p),u:top(A.u)}})}const sc=a=>a.sort((x,y)=>y[1]-x[1]||x[2]-y[2]).slice(0,10).map(x=>x.slice(0,-1));Object.values(S.fp).forEach(g=>{g.p=sc(g.p);g.u=sc(g.u)});Object.values(C.fp).forEach(g=>{g.s=so(g.s);g.k=so(g.k)});
   [P,S].forEach(T=>Object.values(T.ga).forEach(g=>{g.ch=g.ch.slice(0,5).map(x=>x.slice(0,3));g.md=g.md.slice(0,5).map(x=>x.slice(0,3))}));
   P.months=Object.keys(P.raw).filter(m=>m>='2026-01').sort();S.months=Object.keys(S.raw).filter(m=>m>='2026-01').sort();C.months=Object.keys(C.raw).filter(m=>m>='2026-01'&&(C.raw[m][2]||C.raw[m][6])).sort();
   // 업무: 주간 표(날짜 있는 줄) + 월간 업무현황(월간 보고 체크한 줄)
