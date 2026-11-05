@@ -521,12 +521,12 @@ function startMonthly(MP,MS,MC){
     return`<div class="gxw${one?' gx1':''}">${card(+m.slice(5)+'월','',rate,c[iRev],tg)}${card(m.slice(0,4)+'년 누적',`(1~${+m.slice(5)}월)`,aR,aA,aT)}</div>`};
   // 월별 추이 막대 (전년 회색, 올해 사이트 색)
   const trend=(R,m,defs,hex,soft,off=0)=>{const yr=m.slice(0,4),py=String(+yr-1);
-    return defs.map(([t,i,u],ci)=>{const A=[],B=[];for(let k=1;k<=12;k++){const mm=('0'+k).slice(-2);const a=R[`${py}-${mm}`],b=R[`${yr}-${mm}`];A.push(a&&a[i]?a[i]:null);B.push(b&&b[i]!=null&&(b[i]||b.some(v=>v))?b[i]:null)}
+    return defs.map(([t,i,u,ty],ci)=>{const A=[],B=[];for(let k=1;k<=12;k++){const mm=('0'+k).slice(-2);const a=R[`${py}-${mm}`],b=R[`${yr}-${mm}`];A.push(a&&a[i]?a[i]:null);B.push(b&&b[i]!=null&&(b[i]||b.some(v=>v))?b[i]:null)}
       const mx=Math.max(1,...A.filter(v=>v!=null),...B.filter(v=>v!=null));
       const W=560,H=210,T=28,Bm=24,L=6,R2=6,gw=(W-L-R2)/12,bw=Math.min(14,(gw-8)/2),yy=v=>T+(1-v/mx)*(H-T-Bm);
       const f=v=>u==='만'?(v/1e4>=100?Math.round(v/1e4):(Math.round(v/1e3)/10)):u==='$'?'$'+Math.round(v).toLocaleString('en-US'):won(v),su=u==='$'?'':u,tv=v=>u==='$'?'$'+(+v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):won(v);
       let g=`<line x1="${L}" x2="${W-R2}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--grid)"/>`;
-      if(ci+off<2){const pts=(V,c,w)=>{const P=V.map((v,k)=>v==null?null:[L+gw*k+gw/2,yy(v)]);let d='';P.forEach((q,k)=>{if(!q)return;d+=(d&&P[k-1]?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)});return`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`+P.map((q,k)=>q?`<circle cx="${q[0]}" cy="${q[1]}" r="${w>2?3.2:2.4}" fill="#fff" stroke="${c}" stroke-width="${w>2?2:1.5}"><title>${k+1}월 ${tv(V[k])}</title></circle>`:'').join('')};
+      if(ty?ty==='line':ci+off<2){const pts=(V,c,w)=>{const P=V.map((v,k)=>v==null?null:[L+gw*k+gw/2,yy(v)]);let d='';P.forEach((q,k)=>{if(!q)return;d+=(d&&P[k-1]?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)});return`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`+P.map((q,k)=>q?`<circle cx="${q[0]}" cy="${q[1]}" r="${w>2?3.2:2.4}" fill="#fff" stroke="${c}" stroke-width="${w>2?2:1.5}"><title>${k+1}월 ${tv(V[k])}</title></circle>`:'').join('')};
         g+=pts(A,'#c3c8d0',1.5)+pts(B,hex,2.5);
         for(let k=0;k<12;k++){const x=L+gw*k+gw/2,on=k===+m.slice(5)-1;
           if(B[k]!=null)g+=`<text x="${x}" y="${yy(B[k])-9}" text-anchor="middle" font-size="${on?12:10.5}" font-weight="${on?700:500}" fill="${on?'var(--fg)':'var(--sub)'}">${f(B[k])}${su}</text>`;
@@ -606,7 +606,7 @@ function startMonthly(MP,MS,MC){
       sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}${card('구글 애드센스',asv==null?'-':usd(asv),'',asv!=null&&asp?pct(asv,asp):null,asv!=null&&asy?pct(asv,asy):null)}</div>
         <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3)}<div class="gnt">목표 기준: 전년 같은 달 결제 금액</div></div>`)+
       sec('업무 현황',planTbl(m,['슬라이드멤버스'],1).replace('style="margin-top:14px"','')+planTbl(m,['슬라이드멤버스']))+
-      sec('월별 추이',`<div class="g2m">${trend(Object.fromEntries([...new Set([...Object.keys(M.raw),...Object.keys(AS)])].map(k=>{const r=[...(M.raw[k]||[])];r[20]=AS[k]==null?null:+AS[k];return[k,r]})),m,[['방문자 수',0,''],['결제수',2,''],['결제 금액',3,'만'],['실매출',5,'만'],['광고비',4,'만'],['구글 애드센스',20,'$']],'#8A6FDB','#D3C8F4')}</div>`)+
+      sec('월별 추이',`<div class="g2m">${trend(Object.fromEntries([...new Set([...Object.keys(M.raw),...Object.keys(AS)])].map(k=>{const r=[...(M.raw[k]||[])];r[20]=AS[k]==null?null:+AS[k];return[k,r]})),m,[['방문자 수',0,''],['결제수',2,''],['광고비',4,'만','line'],['구글 애드센스',20,'$','line'],['결제 금액',3,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
       sec('광고 매체별 성과 · 회원별 결제',two(tcard('광고 매체별 성과',adT),tcard('회원별 결제수',memY)))+
       sec('첫 결제 콘텐츠 TOP 10',fp?two(tcard('프리미엄',fpT(fp.p)),tcard('유료',fpT(fp.u))):'<div class="card empty">이 달 첫 결제 콘텐츠는 원본 시트에서 불러온 화면(Vercel)에서 볼 수 있습니다.</div>'));
