@@ -511,14 +511,15 @@ function startMonthly(MP,MS,MC){
   const df=(a,b)=>{const d=a-b;return`<span class="${d>=0?'p':'m'}">${d>=0?'+':'-'}${won(Math.abs(d))}</span>`};
   const gaT=a=>tb('<th>No</th><th style="text-align:left">이름</th><th>유입수</th><th>전년</th><th>전년 대비</th>',(a||[]).map((r,i)=>`<tr><td>${i+1}</td><td class="tl">${esc(r[0])}</td><td><b>${won(r[1])}</b></td><td>${won(r[2])}</td><td>${df(r[1],r[2])}</td></tr>`),'이 달 유입 데이터가 없습니다.');
   const bar=r=>`<div class="pg"><i style="width:${Math.min(100,r||0).toFixed(1)}%"></i></div>`;
-  // 목표 달성 카드 (목표 = 전년 같은 달 매출)
-  const goal=(R,months,m,iRev,col,one,tf,un='원')=>{const T=x=>tf?tf(x):((R[yoyM(x)]||[])[iRev]||0);const c=R[m],tg=T(m),rate=tg?c[iRev]/tg*100:null;
-    const ys=months.filter(x=>x<=m&&x.slice(0,4)===m.slice(0,4));
-    const aA=ys.reduce((a,x)=>a+R[x][iRev],0),aT=ys.reduce((a,x)=>a+T(x),0),aR=aT?aA/aT*100:null;
+  // 목표 달성 카드: 기본 목표 = 전년 같은 달 매출 (tf로 고정값 지정 가능). GOAL_SET에 적힌 달은 그 값을 목표로 사용
+  const GOAL_SET={ppt:{'2026-11':3000000},sm:{'2026-11':8000000},ss:{'2026-11':1000000},km:{'2026-11':50}};
+  const goal=(R,months,m,iRev,col,one,tf,un='원',ov)=>{const T=x=>ov&&ov[x]!=null?ov[x]:tf?tf(x):((R[yoyM(x)]||[])[iRev]||0);const c=R[m],tg=T(m),rate=tg?c[iRev]/tg*100:null;
+    const nm=nextM(m),nt=T(nm),df=nt-c[iRev];
     const [hex,soft]=col||(iRev===2?['#4A86E8','#dde8fb']:['#8A6FDB','#e7e1f8']),bg=iRev===2?'#f5f8fe':'#f8f6fd';
     const ring=r=>{const R0=30,L=2*Math.PI*R0,v=Math.max(0,Math.min(100,r||0));return`<svg viewBox="0 0 76 76" width="76" height="76" aria-hidden="true"><circle cx="38" cy="38" r="${R0}" fill="none" stroke="${soft}" stroke-width="8"/><circle cx="38" cy="38" r="${R0}" fill="none" stroke="${hex}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(L*v/100).toFixed(1)} ${L.toFixed(1)}" transform="rotate(-90 38 38)"/><text x="38" y="42" text-anchor="middle" font-size="${r>=100?13:15}" font-weight="800" fill="var(--fg)">${r==null?'-':r.toFixed(1)}<tspan font-size="9" font-weight="600">%</tspan></text></svg>`};
     const card=(ttl,sub,r,act,tgt)=>`<div class="gx">${ring(r)}<div class="gxb"><div class="gxt" style="color:${hex}">${ttl}${sub?` <span>${sub}</span>`:''}</div><div class="gxv"><b>${won(act)}</b><u>${un}</u></div></div><div class="gxr"><div class="l">목표</div><div class="v">${won(tgt)}<u>${un}</u></div><div class="gxs">${tgt>act?`${won(tgt-act)}${un} 남음`:'<em class="ok">달성</em>'}</div></div></div>`;
-    return`<div class="gxw${one?' gx1':''}">${card(+m.slice(5)+'월','',rate,c[iRev],tg)}${card(m.slice(0,4)+'년 누적',`(1~${+m.slice(5)}월)`,aR,aA,aT)}</div>`};
+    const cardN=`<div class="gx"><div class="gxb"><div class="gxt" style="color:${hex}">${+nm.slice(5)}월 목표</div><div class="gxv"><b>${won(nt)}</b><u>${un}</u></div></div><div class="gxr"><div class="l">${+m.slice(5)}월 실적 대비</div><div class="v">${df>=0?'+':'-'}${won(Math.abs(df))}<u>${un}</u></div><div class="gxs">${c[iRev]?(df>=0?'+':'-')+Math.abs(df/c[iRev]*100).toFixed(1)+'%':''}</div></div></div>`;
+    return`<div class="gxw${one?' gx1':''}">${card(+m.slice(5)+'월','',rate,c[iRev],tg)}${cardN}</div>`};
   // 월별 추이 막대 (전년 회색, 올해 사이트 색)
   const trend=(R,m,defs,hex,soft,off=0)=>{const yr=m.slice(0,4),py=String(+yr-1);
     return defs.map(([t,i,u,ty],ci)=>{const A=[],B=[];for(let k=1;k<=12;k++){const mm=('0'+k).slice(-2);const a=R[`${py}-${mm}`],b=R[`${yr}-${mm}`];A.push(a&&a[i]?a[i]:null);B.push(b&&b[i]!=null&&(b[i]||b.some(v=>v))?b[i]:null)}
@@ -553,7 +554,7 @@ function startMonthly(MP,MS,MC){
     const nt=M.note[m]||['',''];
     pane('mPpt',
       sec('전체 성과',`<div class="g4m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}</div>
-        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,2)}<div class="gnt">목표 기준: 전년 같은 달 결제 금액</div></div>`)+
+        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,2,null,null,null,'원',GOAL_SET.ppt)}<div class="gnt">목표 기준: 전년 같은 달 결제 금액 (11월 목표 300만 원)</div></div>`)+
       sec('업무 현황',planTbl(m,['예스폼 파워포인트'],1).replace('style="margin-top:14px"','')+planTbl(m,['예스폼 파워포인트']))+
       sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['방문자 수',0,''],['결제 금액',2,'만'],['광고비',3,'만'],['쇼핑몰 매출',6,'만']],'#4A86E8','#b7cff6')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
@@ -604,7 +605,7 @@ function startMonthly(MP,MS,MC){
     const ga=M.ga[m]||{},nt=M.note[m]||['',''];
     pane('mSm',
       sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}${card('구글 애드센스',asv==null?'-':usd(asv),'',asv!=null&&asp?pct(asv,asp):null,asv!=null&&asy?pct(asv,asy):null)}</div>
-        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3)}<div class="gnt">목표 기준: 전년 같은 달 결제 금액</div></div>`)+
+        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3,null,null,null,'원',GOAL_SET.sm)}<div class="gnt">목표 기준: 전년 같은 달 결제 금액 (11월 목표 800만 원)</div></div>`)+
       sec('업무 현황',planTbl(m,['슬라이드멤버스'],1).replace('style="margin-top:14px"','')+planTbl(m,['슬라이드멤버스']))+
       sec('월별 추이',`<div class="g2m">${trend(Object.fromEntries([...new Set([...Object.keys(M.raw),...Object.keys(AS)])].map(k=>{const r=[...(M.raw[k]||[])];r[20]=AS[k]==null?null:+AS[k];return[k,r]})),m,[['방문자 수',0,''],['결제수',2,''],['광고비',4,'만','line'],['구글 애드센스',20,'$','line'],['결제 금액',3,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
@@ -637,7 +638,7 @@ return c||o.slice(0,16)};
     const nt=M.note[m]||['','','',''],ins=M.ins[m]||['',''];
     pane('mCt',
       sec('채널별 성과',cmp)+
-      sec('목표 달성률',two('<div>'+goal(M.raw,M.months,m,2,['#7BB235','#e3f0d2'],1,()=>2000000)+'<div class="gnt">목표 기준: 월 결제 금액 200만 원</div></div>','<div>'+goal(M.raw,M.months,m,5,['#3E9C86','#d3ebe5'],1,()=>50,'건')+'<div class="gnt">목표 기준: 월 결제수 50건</div></div>'))+
+      sec('목표 달성률',two('<div>'+goal(M.raw,M.months,m,2,['#7BB235','#e3f0d2'],1,()=>2000000,'원',GOAL_SET.ss)+'<div class="gnt">목표 기준: 월 결제 금액 200만 원 (11월 목표 100만 원)</div></div>','<div>'+goal(M.raw,M.months,m,5,['#3E9C86','#d3ebe5'],1,()=>50,'건',GOAL_SET.km)+'<div class="gnt">목표 기준: 월 결제수 50건</div></div>'))+
       sec('업무 현황',planTbl(m,['스마트스토어','크몽'],1).replace('style="margin-top:14px"','')+planTbl(m,['스마트스토어','크몽']))+
       sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['스마트스토어 결제 금액',2,'만']],'#7BB235','#CBE3AC')}${trend(M.raw,m,[['크몽 결제 금액',6,'만']],'#3E9C86','#B5DDD3')}${trend(M.raw,m,[['스마트스토어 광고비',3,'만']],'#7BB235','#CBE3AC',2)}${trend(M.raw,m,[['크몽 광고비',7,'만']],'#3E9C86','#B5DDD3',2)}</div>`)+
       sec('결제 상위 콘텐츠 TOP 10',two(tcard('스마트스토어',fpT(fp.s,'c')),tcard('크몽',fpT(fp.k,'k')))));
