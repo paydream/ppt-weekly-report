@@ -347,6 +347,8 @@ table.mt{min-width:0;table-layout:fixed}
 
 <script>// ▼ Apps Script 웹 앱 배포 후 받은 URL을 따옴표 안에 붙여 넣으세요
 const API_URL='https://script.google.com/macros/s/AKfycbzQLdJsUek_UuDK6nwxluKonJKEVGwgZNHTKAHVIuPVdFh_F_sTMn5or43LFjtUW-Oo/exec';
+// 월간 목표: 원본 시트 「설정 (목록)」 탭의 월간 목표 표(기준월 + 사이트별 목표). 빈칸인 달은 기본 목표 사용
+const GOALS={ppt:{},sm:{},ss:{},km:{}};
 
 // 원본 시트 「주간」 탭 일간 입력 (날짜, 스토어 건/금액, 크몽 건/금액, 슬멤 건/금액)
 const RAW_SAVED=[["2026-09-21", 0, 0, 0, 0, 12, 177374], ["2026-09-22", 0, 0, 2, 46000, 8, 111630], ["2026-09-23", 0, 0, 1, 34000, 10, 149402], ["2026-09-24", 0, 0, 3, 55000, 12, 173002], ["2026-09-25", 2, 54800, 3, 58000, 4, 58658], ["2026-09-26", 0, 0, 1, 25000, 12, 181660], ["2026-09-27", 0, 0, 3, 38000, 13, 191446], ["2026-09-28", 2, 26800, 6, 126000, 15, 208774], ["2026-09-29", 2, 26800, 0, 0, 8, 121688], ["2026-09-30", 0, 0, 1, 12000, 2, 27886], ["2026-10-01", 1, 8900, 0, 0, 12, 281796], ["2026-10-02", 6, 69400, 3, 27000, 10, 267902], ["2026-10-03", 0, 0, 0, 0, 8, 115916], ["2026-10-04", 0, 0, 0, 0, 8, 110144], ["2026-10-05", 0, 0, 1, 19000, 6, 90916], ["2026-10-06", 4, 92600, 3, 52000, 16, 352288], ["2026-10-07", 0, 0, 4, 83000, 11, 391288], ["2026-10-08", 1, 35900, 2, 39000, 12, 175974], ["2026-10-09", 0, 0, 0, 0, 10, 150974], ["2026-10-10", 0, 0, 0, 0, 14, 196688], ["2026-10-11", 2, 41800, 1, 14000, 10, 149574], ["2026-10-12", 2, 65800, 2, 19000, 8, 117402], ["2026-10-13", 2, 23800, 4, 42000, 9, 135588], ["2026-10-14", 3, 29700, 2, 32000, 7, 109102], ["2026-10-15", 1, 11900, 2, 10000, 9, 135674], ["2026-10-16", 1, 16900, 3, 46000, 10, 148088], ["2026-10-17", 0, 0, 0, 0, 6, 87944], ["2026-10-18", 0, 0, 0, 0, 11, 290960], ["2026-10-19", 3, 77700, 1, 5000, 11, 395660], ["2026-10-20", 0, 0, 1, 5000, 6, 92316], ["2026-10-21", 2, 28800, 0, 0, 10, 145202], ["2026-10-22", 0, 0, 2, 28000, 10, 150888], ["2026-10-23", 2, 18800, 1, 5000, 3, 43272], ["2026-10-24", 0, 0, 2, 40000, 12, 167402], ["2026-10-25", 2, 31800, 4, 53000, 11, 284602], ["2026-10-26", 1, 2900, 1, 19000, 14, 443446]];
@@ -512,7 +514,7 @@ function startMonthly(MP,MS,MC){
   const gaT=a=>tb('<th>No</th><th style="text-align:left">이름</th><th>유입수</th><th>전년</th><th>전년 대비</th>',(a||[]).map((r,i)=>`<tr><td>${i+1}</td><td class="tl">${esc(r[0])}</td><td><b>${won(r[1])}</b></td><td>${won(r[2])}</td><td>${df(r[1],r[2])}</td></tr>`),'이 달 유입 데이터가 없습니다.');
   const bar=r=>`<div class="pg"><i style="width:${Math.min(100,r||0).toFixed(1)}%"></i></div>`;
   // 목표 달성 카드: 기본 목표 = 전년 같은 달 매출 (tf로 고정값 지정 가능). GOAL_SET에 적힌 달은 그 값을 목표로 사용
-  const GOAL_SET={ppt:{'2026-11':3000000},sm:{'2026-11':8000000},ss:{'2026-11':1000000},km:{'2026-11':50}};
+  const GOAL_SET=GOALS;
   const goal=(R,months,m,iRev,col,one,tf,un='원',ov)=>{const T=x=>ov&&ov[x]!=null?ov[x]:tf?tf(x):((R[yoyM(x)]||[])[iRev]||0);const c=R[m],tg=T(m),rate=tg?c[iRev]/tg*100:null;
     const nm=nextM(m),nt=T(nm),df=nt-c[iRev];
     const [hex,soft]=col||(iRev===2?['#4A86E8','#dde8fb']:['#8A6FDB','#e7e1f8']),bg=iRev===2?'#f5f8fe':'#f8f6fd';
@@ -554,7 +556,7 @@ function startMonthly(MP,MS,MC){
     const nt=M.note[m]||['',''];
     pane('mPpt',
       sec('전체 성과',`<div class="g4m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}</div>
-        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,2,null,null,null,'원',GOAL_SET.ppt)}<div class="gnt">목표 기준: 전년 같은 달 결제 금액 (11월 목표 300만 원)</div></div>`)+
+        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,2,null,null,null,'원',GOAL_SET.ppt)}<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 전년 같은 달 결제 금액)</div></div>`)+
       sec('업무 현황',planTbl(m,['예스폼 파워포인트'],1).replace('style="margin-top:14px"','')+planTbl(m,['예스폼 파워포인트']))+
       sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['방문자 수',0,''],['결제 금액',2,'만'],['광고비',3,'만'],['쇼핑몰 매출',6,'만']],'#4A86E8','#b7cff6')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
@@ -605,7 +607,7 @@ function startMonthly(MP,MS,MC){
     const ga=M.ga[m]||{},nt=M.note[m]||['',''];
     pane('mSm',
       sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}${card('구글 애드센스',asv==null?'-':usd(asv),'',asv!=null&&asp?pct(asv,asp):null,asv!=null&&asy?pct(asv,asy):null)}</div>
-        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3,null,null,null,'원',GOAL_SET.sm)}<div class="gnt">목표 기준: 전년 같은 달 결제 금액 (11월 목표 800만 원)</div></div>`)+
+        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3,null,null,null,'원',GOAL_SET.sm)}<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 전년 같은 달 결제 금액)</div></div>`)+
       sec('업무 현황',planTbl(m,['슬라이드멤버스'],1).replace('style="margin-top:14px"','')+planTbl(m,['슬라이드멤버스']))+
       sec('월별 추이',`<div class="g2m">${trend(Object.fromEntries([...new Set([...Object.keys(M.raw),...Object.keys(AS)])].map(k=>{const r=[...(M.raw[k]||[])];r[20]=AS[k]==null?null:+AS[k];return[k,r]})),m,[['방문자 수',0,''],['결제수',2,''],['광고비',4,'만','line'],['구글 애드센스',20,'$','line'],['결제 금액',3,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
@@ -638,7 +640,7 @@ return c||o.slice(0,16)};
     const nt=M.note[m]||['','','',''],ins=M.ins[m]||['',''];
     pane('mCt',
       sec('채널별 성과',cmp)+
-      sec('목표 달성률',two('<div>'+goal(M.raw,M.months,m,2,['#7BB235','#e3f0d2'],1,()=>2000000,'원',GOAL_SET.ss)+'<div class="gnt">목표 기준: 월 결제 금액 200만 원 (11월 목표 100만 원)</div></div>','<div>'+goal(M.raw,M.months,m,5,['#3E9C86','#d3ebe5'],1,()=>50,'건',GOAL_SET.km)+'<div class="gnt">목표 기준: 월 결제수 50건</div></div>'))+
+      sec('목표 달성률',two('<div>'+goal(M.raw,M.months,m,2,['#7BB235','#e3f0d2'],1,()=>2000000,'원',GOAL_SET.ss)+'<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 월 결제 금액 200만 원)</div></div>','<div>'+goal(M.raw,M.months,m,5,['#3E9C86','#d3ebe5'],1,()=>50,'건',GOAL_SET.km)+'<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 월 결제수 50건)</div></div>'))+
       sec('업무 현황',planTbl(m,['스마트스토어','크몽'],1).replace('style="margin-top:14px"','')+planTbl(m,['스마트스토어','크몽']))+
       sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['스마트스토어 결제 금액',2,'만']],'#7BB235','#CBE3AC')}${trend(M.raw,m,[['크몽 결제 금액',6,'만']],'#3E9C86','#B5DDD3')}${trend(M.raw,m,[['스마트스토어 광고비',3,'만']],'#7BB235','#CBE3AC',2)}${trend(M.raw,m,[['크몽 광고비',7,'만']],'#3E9C86','#B5DDD3',2)}</div>`)+
       sec('결제 상위 콘텐츠 TOP 10',two(tcard('스마트스토어',fpT(fp.s,'c')),tcard('크몽',fpT(fp.k,'k')))));
@@ -954,7 +956,7 @@ render();
     if(!API_URL.startsWith('https'))throw 0;
     const r=await fetch(API_URL,{cache:'no-store'});const j=await r.json();
     if(!Array.isArray(j.raw)||!Array.isArray(j.yf))throw 0;
-    RAW=j.raw;YF=j.yf;if(Array.isArray(j.work)){try{const U=parseUnified(j);TASKS=U.tasks;MT=U.mt;if(U.P.months.length)MON=U.P;if(U.S.months.length)MSN=U.S;if(U.C.months.length)MCN=U.C}catch(e){console.error(e)}}else{if(Array.isArray(j.mtask))MT=j.mtask;TASKS=Array.isArray(j.tasks)?j.tasks:[];}if(Array.isArray(j.yft))YFT=j.yft;if(Array.isArray(j.ssp))SSP=j.ssp;if(Array.isArray(j.shop))SHOP=j.shop;if(Array.isArray(j.blog))BLOG=j.blog;if(Array.isArray(j.adsw))ADSW=j.adsw;try{if(j.monthly){const pm=parseMonthly(j.monthly);if(pm.months.length)MON=pm}}catch(e){}try{if(j.sm){const ps=parseSM(j.sm);if(ps.months.length)MSN=ps}}catch(e){}try{if(j.ct){const pc=parseCT(j.ct);if(pc.months.length)MCN=pc}}catch(e){}info=`원본 시트 기준 · ${j.updated} 불러옴`;
+    RAW=j.raw;YF=j.yf;if(Array.isArray(j.mgoal))j.mgoal.forEach(r=>['ppt','sm','ss','km'].forEach((k,i)=>{const v=r[i+1];if(v!==''&&v!=null&&isFinite(+v)&&+v>0)GOALS[k][r[0]]=+v}));if(Array.isArray(j.work)){try{const U=parseUnified(j);TASKS=U.tasks;MT=U.mt;if(U.P.months.length)MON=U.P;if(U.S.months.length)MSN=U.S;if(U.C.months.length)MCN=U.C}catch(e){console.error(e)}}else{if(Array.isArray(j.mtask))MT=j.mtask;TASKS=Array.isArray(j.tasks)?j.tasks:[];}if(Array.isArray(j.yft))YFT=j.yft;if(Array.isArray(j.ssp))SSP=j.ssp;if(Array.isArray(j.shop))SHOP=j.shop;if(Array.isArray(j.blog))BLOG=j.blog;if(Array.isArray(j.adsw))ADSW=j.adsw;try{if(j.monthly){const pm=parseMonthly(j.monthly);if(pm.months.length)MON=pm}}catch(e){}try{if(j.sm){const ps=parseSM(j.sm);if(ps.months.length)MSN=ps}}catch(e){}try{if(j.ct){const pc=parseCT(j.ct);if(pc.months.length)MCN=pc}}catch(e){}info=`원본 시트 기준 · ${j.updated} 불러옴`;
   }catch(e){if(API_URL.startsWith('https'))info='시트를 불러오지 못해 저장된 데이터를 표시합니다';}
   start(RAW,YF,info,TASKS);
   startMonthly(MON,MSN,MCN);
