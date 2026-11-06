@@ -155,9 +155,9 @@ tr.we td:first-child{color:var(--bad)}
 .smix li i{width:9px;height:9px;border-radius:2px;flex:none}
 .smix li b{margin-left:auto;color:var(--fg);font-weight:600}
 @media (max-width:640px){.smix{grid-column:1/-1}}
-.dkl{display:flex;align-items:center;gap:6px}.dkl i{width:8px;height:8px;border-radius:2px;flex:none}.dkl em{margin-left:auto;font-style:normal;font-size:12px;font-weight:500;color:var(--mute);white-space:nowrap}
-.mk .kv .dsub{font-size:11.5px;font-weight:400;color:var(--mute);margin-left:8px;white-space:nowrap}
-@media (max-width:640px){.dkl{flex-wrap:wrap;row-gap:0}.dkl em{margin-left:14px;flex-basis:100%}.mk .kv:has(.dsub){flex-wrap:wrap}.mk .kv .dsub{flex-basis:100%;margin:2px 0 0}}
+.dmk{position:relative}
+.dside{position:absolute;top:16px;right:20px;display:grid;gap:3px;justify-items:end;text-align:right;font-size:12px;font-weight:500;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:640px){.dside{position:static;justify-items:start;text-align:left;gap:1px;margin:2px 0 4px}}
 @media (max-width:1000px){.g5m{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.g5m{grid-template-columns:repeat(2,minmax(0,1fr))}}
 #mView .mkd .dn{color:#4A86E8}
@@ -611,7 +611,7 @@ function startMonthly(MP,MS,MC){
   // 월정액 국내·해외 카드: M2 G~J (11 국내 신규, 12 국내 연장, 13 해외 신규, 14 해외 연장)
   const dmCard=(c,p,y,nm,col,ni,ri)=>{const sum=r=>r&&r[ni]!=null&&r[ri]!=null?r[ni]+r[ri]:null;const v=sum(c);
     const all=c&&c[11]!=null&&c[13]!=null?c[11]+c[12]+c[13]+c[14]:null,sh=v!=null&&all?(v/all*100).toFixed(1)+'%':'-';
-    return`<article class="card k2 mk"><div class="kl dkl"><i style="background:${col}"></i>월정액 ${nm}<em>비중 ${sh}</em></div><div class="kv"><b>${v==null?'-':won(v)}</b><u>건</u>${v==null?'':`<span class="dsub">신규 ${won(c[ni])} · 연장 ${won(c[ri])}</span>`}</div>
+    return`<article class="card k2 mk dmk"><div class="kl">월정액 ${nm}</div><div class="dside"><span>비중 ${sh}</span>${v==null?'':`<span>신규 ${won(c[ni])}</span><span>연장 ${won(c[ri])}</span>`}</div><div class="kv"><b>${v==null?'-':won(v)}</b><u>건</u></div>
     <div class="mkd"><span>전월 대비</span>${chg(v!=null&&sum(p)!=null?pct(v,sum(p)):null)}</div><div class="mkd"><span>전년 대비</span>${chg(v!=null&&sum(y)!=null?pct(v,sum(y)):null)}</div></article>`};
   function renderSM(m){const M=MS,c=M.raw[m];if(!c||!M.months.includes(m))return pane('mSm',noData(m));
     const p=M.raw[prevM(m)],y=M.raw[yoyM(m)];
