@@ -141,18 +141,22 @@ tr.we td:first-child{color:var(--bad)}
 .stabs button:focus-visible{outline:2px solid var(--sc);outline-offset:2px}
 .mpane{display:flex;flex-direction:column;gap:36px}
 .g5m{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-.smix{grid-column:span 2;display:flex;flex-direction:column}
-.smix .mxw{flex:1;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:6px}
+.smix{display:flex;flex-direction:column}
+.smix .mxw{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;margin-top:8px}
 .smix .mxbar{flex:1;min-width:0}
 .smix .mxl{display:flex;gap:2px;height:18px;margin-bottom:5px}
 .smix .mxl span{min-width:38px;text-align:center;font-size:12.5px;font-weight:700;color:var(--fg);white-space:nowrap;font-variant-numeric:tabular-nums}
 .smix .mxs{display:flex;height:22px;border-radius:6px;overflow:hidden;gap:2px;background:var(--line2)}
-.smix .mxs i{display:block;min-width:2px}
-.smix ul{list-style:none;margin:0 0 0 auto;padding:0;display:grid;gap:3px;width:130px}
-.smix li{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--sub);font-variant-numeric:tabular-nums}
+.smix .mxs i{display:flex;align-items:center;justify-content:flex-end;min-width:2px;overflow:hidden;font-style:normal}
+.smix .mxs .mxin{padding-right:7px;color:#fff;font-size:11.5px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.smix ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:3px 12px}
+.smix li{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--sub);white-space:nowrap;font-variant-numeric:tabular-nums}
 .smix li i{width:9px;height:9px;border-radius:2px;flex:none}
 .smix li b{margin-left:auto;color:var(--fg);font-weight:600}
 @media (max-width:640px){.smix{grid-column:1/-1}}
+.dkl{display:flex;align-items:center;gap:6px}.dkl i{width:8px;height:8px;border-radius:2px;flex:none}.dkl em{margin-left:auto;font-style:normal;font-size:12px;font-weight:500;color:var(--mute);white-space:nowrap}
+.mk .kv .dsub{font-size:11.5px;font-weight:400;color:var(--mute);margin-left:8px;white-space:nowrap}
+@media (max-width:640px){.dkl{flex-wrap:wrap;row-gap:0}.dkl em{margin-left:14px;flex-basis:100%}.mk .kv:has(.dsub){flex-wrap:wrap}.mk .kv .dsub{flex-basis:100%;margin:2px 0 0}}
 @media (max-width:1000px){.g5m{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.g5m{grid-template-columns:repeat(2,minmax(0,1fr))}}
 #mView .mkd .dn{color:#4A86E8}
@@ -442,11 +446,11 @@ function parseUnified(j){
   const monday=d=>{const t=new Date(d+'T00:00:00Z');t.setUTCDate(t.getUTCDate()-((t.getUTCDay()+6)%7));return t.toISOString().slice(0,10)};
   const num=v=>v===''||v==null?0:(Number(String(v).replace(/[^0-9.\-]/g,''))||0);
   const P={months:[],raw:{},note:{},ins:{},ga:{},ad:{},fp:{},adm:{}},S={months:[],raw:{},note:{},ins:{},ga:{},ad:{},fp:{},adsense:{}},C={months:[],raw:{},note:{},ins:{},fp:{}};
-  const mem={};(j.mmem||[]).forEach(r=>{mem[r[0]]=[1,2,3,4,5].map(i=>num(r[i]))});
+  const mem={};(j.mmem||[]).forEach(r=>{mem[r[0]]=[1,2,3,4,5,6,7,8,9].map(i=>i>5&&(r[i]===''||r[i]==null)?null:num(r[i]))});
   const ct={};
   (j.mperf||[]).forEach(r=>{const m=r[0],site=String(r[1]).trim();const v=i=>num(r[i]);const real=i=>String(r[7]).trim()===''?v(5)-v(6):v(7);
     if(site==='예스폼 파워포인트'){if(r[4]===''&&r[5]==='')return;P.raw[m]=[v(2),v(4),v(5),v(6),real(),v(8),v(9)]}
-    else if(site==='슬라이드멤버스'){if(r[4]===''&&r[5]==='')return;S.raw[m]=[v(2),v(3),v(4),v(5),v(6),real()].concat(mem[m]||[0,0,0,0,0]);if(String(r[10]).trim()!=='')S.adsense[m]=v(10)}
+    else if(site==='슬라이드멤버스'){if(r[4]===''&&r[5]==='')return;S.raw[m]=[v(2),v(3),v(4),v(5),v(6),real()].concat(mem[m]||[0,0,0,0,0,null,null,null,null]);if(String(r[10]).trim()!=='')S.adsense[m]=v(10)}
     else if(site==='스마트스토어'){const c=ct[m]||(ct[m]=[0,0,0,0,0,0,0,0,0]);c[0]=v(2);c[1]=v(4);c[2]=v(5);c[3]=v(6);c[4]=real()}
     else if(site==='크몽'){const c=ct[m]||(ct[m]=[0,0,0,0,0,0,0,0,0]);c[5]=v(4);c[6]=v(5);c[7]=v(6);c[8]=real()}});
   C.raw=ct;
@@ -599,10 +603,15 @@ function startMonthly(MP,MS,MC){
   const SM_MIX=[['월정액',[9,10],10.99,'#8A6FDB'],['1년',[8],99.99,'#9CA3AF'],['1일',[6],9.99,'#C4C8CF'],['1주',[7],12.99,'#E3E5E9']];
   const mixCard=c=>{const v=SM_MIX.map(([n,ix,pr,col])=>[n,ix.reduce((a,k)=>a+(c[k]||0),0)*pr,col]),t=v.reduce((a,x)=>a+x[1],0);
     const s=x=>t?(x/t*100).toFixed(1)+'%':'-',on=v.filter(x=>x[1]>0);
-    // % 라벨: 구간과 같은 비율로 나누되 좁은 구간도 글자가 들어갈 최소 폭 확보
-    const lab=on.map(([n,a,col],i)=>`<span style="flex:${a} 1 0${n==='월정액'?';color:'+col+';text-align:left':''}">${n==='월정액'?'월정액 ':''}${s(a)}</span>`).join('');
-    const seg=on.map(([n,a,col])=>`<i style="flex:${a} 1 0;background:${col}" title="${n} ${s(a)}"></i>`).join('');
-    return`<article class="card k2 mk smix"><div class="kl">회원타입별 매출</div><div class="mxw"><div class="mxbar" role="img" aria-label="회원타입별 매출 비중"><div class="mxl">${lab}</div><div class="mxs">${seg}</div></div><ul>${v.map(([n,a,col])=>`<li><i style="background:${col}"></i>${n}<b>${s(a)}</b></li>`).join('')}</ul></div></article>`};
+    // 월정액 비중은 월정액 구간 안쪽 오른쪽에 표시 (구간이 좁으면 %만, 아주 좁으면 생략)
+    const inl=(n,a)=>{if(n!=='월정액'||!t)return '';const r=a/t*100;return r>=45?`<span class="mxin">월정액 ${s(a)}</span>`:r>=22?`<span class="mxin">${s(a)}</span>`:''};
+    const seg=on.map(([n,a,col])=>`<i style="flex:${a} 1 0;background:${col}" title="${n} ${s(a)}">${inl(n,a)}</i>`).join('');
+    return`<article class="card k2 mk smix"><div class="kl">회원타입별 매출</div><div class="mxw"><div class="mxbar" role="img" aria-label="회원타입별 매출 비중"><div class="mxs">${seg}</div></div><ul>${v.map(([n,a,col])=>`<li><i style="background:${col}"></i>${n}<b${n==='월정액'?` style="color:${col}"`:''}>${s(a)}</b></li>`).join('')}</ul></div></article>`};
+  // 월정액 국내·해외 카드: M2 G~J (11 국내 신규, 12 국내 연장, 13 해외 신규, 14 해외 연장)
+  const dmCard=(c,p,y,nm,col,ni,ri)=>{const sum=r=>r&&r[ni]!=null&&r[ri]!=null?r[ni]+r[ri]:null;const v=sum(c);
+    const all=c&&c[11]!=null&&c[13]!=null?c[11]+c[12]+c[13]+c[14]:null,sh=v!=null&&all?(v/all*100).toFixed(1)+'%':'-';
+    return`<article class="card k2 mk"><div class="kl dkl"><i style="background:${col}"></i>월정액 ${nm}<em>비중 ${sh}</em></div><div class="kv"><b>${v==null?'-':won(v)}</b><u>건</u>${v==null?'':`<span class="dsub">신규 ${won(c[ni])} · 연장 ${won(c[ri])}</span>`}</div>
+    <div class="mkd"><span>전월 대비</span>${chg(v!=null&&sum(p)!=null?pct(v,sum(p)):null)}</div><div class="mkd"><span>전년 대비</span>${chg(v!=null&&sum(y)!=null?pct(v,sum(y)):null)}</div></article>`};
   function renderSM(m){const M=MS,c=M.raw[m];if(!c||!M.months.includes(m))return pane('mSm',noData(m));
     const p=M.raw[prevM(m)],y=M.raw[yoyM(m)];
     const K=[['방문자 수',0,'명'],['결제수',2,'건'],['결제 금액',3,'원'],['광고비',4,'원']];
@@ -627,7 +636,7 @@ function startMonthly(MP,MS,MC){
     const ga=M.ga[m]||{},nt=M.note[m]||['',''];
     pane('mSm',
       sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}${card('구글 애드센스',asv==null?'-':usd(asv),'',asv!=null&&asp?pct(asv,asp):null,asv!=null&&asy?pct(asv,asy):null)}</div>
-        <div class="g5m" style="margin-top:14px">${mixCard(c)}${card('월정액 신규',won(c[9]||0),'건',p&&pct(c[9]||0,p[9]||0),y&&pct(c[9]||0,y[9]||0))}${card('월정액 연장',won(c[10]||0),'건',p&&pct(c[10]||0,p[10]||0),y&&pct(c[10]||0,y[10]||0))}${card('1년',won(c[8]||0),'건',p&&pct(c[8]||0,p[8]||0),y&&pct(c[8]||0,y[8]||0))}</div>
+        <div class="g5m" style="margin-top:14px">${mixCard(c)}${card('월정액 신규',won(c[9]||0),'건',p&&pct(c[9]||0,p[9]||0),y&&pct(c[9]||0,y[9]||0))}${card('월정액 연장',won(c[10]||0),'건',p&&pct(c[10]||0,p[10]||0),y&&pct(c[10]||0,y[10]||0))}${dmCard(c,p,y,'국내','#8A6FDB',11,12)}${dmCard(c,p,y,'해외','#D3C8F4',13,14)}</div>
         <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3,null,null,null,'원',GOAL_SET.sm)}<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 전년 같은 달 결제 금액)</div></div>`)+
       sec('업무 현황',planTbl(m,['슬라이드멤버스'],1).replace('style="margin-top:14px"','')+planTbl(m,['슬라이드멤버스']))+
       sec('월별 추이',`<div class="g2m">${trend(Object.fromEntries([...new Set([...Object.keys(M.raw),...Object.keys(AS)])].map(k=>{const r=[...(M.raw[k]||[])];r[20]=AS[k]==null?null:+AS[k];return[k,r]})),m,[['방문자 수',0,''],['결제수',2,''],['광고비',4,'만','line'],['구글 애드센스',20,'$','line'],['결제 금액',3,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
