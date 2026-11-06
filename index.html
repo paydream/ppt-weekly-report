@@ -141,6 +141,15 @@ tr.we td:first-child{color:var(--bad)}
 .stabs button:focus-visible{outline:2px solid var(--sc);outline-offset:2px}
 .mpane{display:flex;flex-direction:column;gap:36px}
 .g5m{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.smix{grid-column:span 2;display:flex;align-items:center;gap:22px}
+.smix svg{width:96px;height:96px;flex:none;display:block}
+.smix .mxb{flex:1;min-width:0}
+.smix .kl small{font-size:12px;font-weight:400;color:var(--mute);margin-left:6px}
+.smix ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:3px;max-width:200px}
+.smix li{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--sub);font-variant-numeric:tabular-nums}
+.smix li i{width:9px;height:9px;border-radius:2px;flex:none}
+.smix li b{margin-left:auto;color:var(--fg);font-weight:600}
+@media (max-width:640px){.smix{grid-column:1/-1}}
 @media (max-width:1000px){.g5m{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.g5m{grid-template-columns:repeat(2,minmax(0,1fr))}}
 #mView .mkd .dn{color:#4A86E8}
@@ -583,6 +592,14 @@ function startMonthly(MP,MS,MC){
     const F=/^(powerpoint|ppt|pptx|keynote|google|templates?|slides?|presentations?|themes?|design|backgrounds?|best|simple|ultimate)$/i;
     let w=c.split(' ');while(w.length>2&&F.test(w[w.length-1]))w.pop();w=w.filter((x,k)=>k<2||!F.test(x));
     let o=w.join(' ');if(o.length>38)o=w.reduce((a,x)=>(a+' '+x).trim().length<=38?(a+' '+x).trim():a,'');return o||String(t)};
+  // 회원 타입별 매출 구성: M2 결제수 × 이용권 단가(USD 기준)로 비중 추정
+  const SM_MIX=[['월정액',[9,10],10.99,'#8A6FDB'],['1년',[8],99.99,'#9CA3AF'],['1일',[6],9.99,'#C4C8CF'],['1주',[7],12.99,'#E3E5E9']];
+  const mixCard=c=>{const v=SM_MIX.map(([n,ix,pr,col])=>[n,ix.reduce((a,k)=>a+(c[k]||0),0)*pr,col]),t=v.reduce((a,x)=>a+x[1],0);
+    const R=38,C=2*Math.PI*R;let off=0,g=`<circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--line2)" stroke-width="14"/>`;
+    if(t)v.forEach(([n,a,col])=>{if(!a)return;const len=a/t*C;g+=`<circle cx="50" cy="50" r="${R}" fill="none" stroke="${col}" stroke-width="14" stroke-dasharray="${Math.max(len-1,.5)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 50 50)"><title>${n} ${(a/t*100).toFixed(1)}%</title></circle>`;off+=len});
+    const s=x=>t?(x/t*100).toFixed(1)+'%':'-';
+    g+=`<text x="50" y="50" text-anchor="middle" font-size="15" font-weight="700" fill="var(--fg)">${s(v[0][1])}</text><text x="50" y="65" text-anchor="middle" font-size="10.5" fill="var(--mute)">월정액</text>`;
+    return`<article class="card k2 mk smix"><svg viewBox="0 0 100 100" role="img" aria-label="회원 타입별 매출 구성">${g}</svg><div class="mxb"><div class="kl">매출 구성<small>결제수 × 단가 기준</small></div><ul>${v.map(([n,a,col])=>`<li><i style="background:${col}"></i>${n}<b>${s(a)}</b></li>`).join('')}</ul></div></article>`};
   function renderSM(m){const M=MS,c=M.raw[m];if(!c||!M.months.includes(m))return pane('mSm',noData(m));
     const p=M.raw[prevM(m)],y=M.raw[yoyM(m)];
     const K=[['방문자 수',0,'명'],['결제수',2,'건'],['결제 금액',3,'원'],['광고비',4,'원']];
@@ -607,6 +624,7 @@ function startMonthly(MP,MS,MC){
     const ga=M.ga[m]||{},nt=M.note[m]||['',''];
     pane('mSm',
       sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}${card('구글 애드센스',asv==null?'-':usd(asv),'',asv!=null&&asp?pct(asv,asp):null,asv!=null&&asy?pct(asv,asy):null)}</div>
+        <div class="g5m" style="margin-top:14px">${mixCard(c)}${card('월정액 신규',won(c[9]||0),'건',p&&pct(c[9]||0,p[9]||0),y&&pct(c[9]||0,y[9]||0))}${card('월정액 연장',won(c[10]||0),'건',p&&pct(c[10]||0,p[10]||0),y&&pct(c[10]||0,y[10]||0))}${card('1년',won(c[8]||0),'건',p&&pct(c[8]||0,p[8]||0),y&&pct(c[8]||0,y[8]||0))}</div>
         <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3,null,null,null,'원',GOAL_SET.sm)}<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 전년 같은 달 결제 금액)</div></div>`)+
       sec('업무 현황',planTbl(m,['슬라이드멤버스'],1).replace('style="margin-top:14px"','')+planTbl(m,['슬라이드멤버스']))+
       sec('월별 추이',`<div class="g2m">${trend(Object.fromEntries([...new Set([...Object.keys(M.raw),...Object.keys(AS)])].map(k=>{const r=[...(M.raw[k]||[])];r[20]=AS[k]==null?null:+AS[k];return[k,r]})),m,[['방문자 수',0,''],['결제수',2,''],['광고비',4,'만','line'],['구글 애드센스',20,'$','line'],['결제 금액',3,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
