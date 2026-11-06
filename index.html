@@ -142,7 +142,8 @@ tr.we td:first-child{color:var(--bad)}
 .mpane{display:flex;flex-direction:column;gap:36px}
 .g5m{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
 .smix{display:flex;flex-direction:column}
-.smix .mxw{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;margin-top:8px}
+.smix .mxw{flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px;margin-top:16px}
+.smix .mxbar{flex:none}
 .smix .mxbar{flex:1;min-width:0}
 .smix .mxl{display:flex;gap:2px;height:18px;margin-bottom:5px}
 .smix .mxl span{min-width:38px;text-align:center;font-size:12.5px;font-weight:700;color:var(--fg);white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -606,7 +607,7 @@ function startMonthly(MP,MS,MC){
     // 월정액 비중은 월정액 구간 안쪽 오른쪽에 표시 (구간이 좁으면 %만, 아주 좁으면 생략)
     const inl=(n,a)=>{if(n!=='월정액'||!t)return '';const r=a/t*100;return r>=45?`<span class="mxin">월정액 ${s(a)}</span>`:r>=22?`<span class="mxin">${s(a)}</span>`:''};
     const seg=on.map(([n,a,col])=>`<i style="flex:${a} 1 0;background:${col}" title="${n} ${s(a)}">${inl(n,a)}</i>`).join('');
-    return`<article class="card k2 mk smix"><div class="kl">회원타입별 매출</div><div class="mxw"><div class="mxbar" role="img" aria-label="회원타입별 매출 비중"><div class="mxs">${seg}</div></div><ul>${v.map(([n,a,col])=>`<li><i style="background:${col}"></i>${n}<b${n==='월정액'?` style="color:${col}"`:''}>${s(a)}</b></li>`).join('')}</ul></div></article>`};
+    return`<article class="card k2 mk smix"><div class="kl">회원타입별 매출</div><div class="mxw"><div class="mxbar" role="img" aria-label="회원타입별 매출 비중"><div class="mxs">${seg}</div></div><ul>${[0,1,3,2].map(i=>v[i]).map(([n,a,col])=>`<li><i style="background:${col}"></i>${n}<b${n==='월정액'?` style="color:${col}"`:''}>${s(a)}</b></li>`).join('')}</ul></div></article>`};
   // 월정액 국내·해외 카드: M2 G~J (11 국내 신규, 12 국내 연장, 13 해외 신규, 14 해외 연장)
   const dmCard=(c,p,y,nm,col,ni,ri)=>{const sum=r=>r&&r[ni]!=null&&r[ri]!=null?r[ni]+r[ri]:null;const v=sum(c);
     const all=c&&c[11]!=null&&c[13]!=null?c[11]+c[12]+c[13]+c[14]:null,sh=v!=null&&all?(v/all*100).toFixed(1)+'%':'-';
