@@ -455,7 +455,7 @@ function parseUnified(j){
     else if(site==='스마트스토어'){const c=ct[m]||(ct[m]=[0,0,0,0,0,0,0,0,0]);c[0]=v(2);c[1]=v(4);c[2]=v(5);c[3]=v(6);c[4]=real()}
     else if(site==='크몽'){const c=ct[m]||(ct[m]=[0,0,0,0,0,0,0,0,0]);c[5]=v(4);c[6]=v(5);c[7]=v(6);c[8]=real()}});
   C.raw=ct;
-  (j.mga||[]).forEach(r=>{const T=r[1]==='예스폼 파워포인트'?P:r[1]==='슬라이드멤버스'?S:null;if(!T||!r[4])return;const g=T.ga[r[0]]||(T.ga[r[0]]={ch:[],md:[]});(r[2]==='매체'?g.md:g.ch).push([String(r[4]),num(r[5]),num(r[6]),num(r[3])])});
+  (j.mga||[]).forEach(r=>{const T=r[1]==='예스폼 파워포인트'?P:r[1]==='슬라이드멤버스'?S:null;if(!T||!r[4])return;if(String(r[2]).trim()==='검색유입'){const s=T.sr||(T.sr={});(s[r[0]]||(s[r[0]]=[])).push([String(r[4]),num(r[5]),num(r[6]),num(r[3])]);return}const g=T.ga[r[0]]||(T.ga[r[0]]={ch:[],md:[]});(r[2]==='매체'?g.md:g.ch).push([String(r[4]),num(r[5]),num(r[6]),num(r[3])])});
   [P,S].forEach(T=>Object.values(T.ga).forEach(g=>{g.ch.sort((a,b)=>a[3]-b[3]);g.md.sort((a,b)=>a[3]-b[3])}));
   (j.mad||[]).forEach(r=>{const row=[String(r[2]),num(r[3]),num(r[4]),num(r[5])];if(r[1]==='예스폼 파워포인트')(P.adm[r[0]]||(P.adm[r[0]]=[])).push(row);else if(r[1]==='슬라이드멤버스')(S.ad[r[0]]||(S.ad[r[0]]=[])).push(row)});
   (j.yf||[]).forEach(r=>{if(r[10])LKP[nk(r[3])]=String(r[10])});(j.ssp||[]).forEach(r=>{if(r[6])LKC[nk(r[1])]=String(r[6])});
@@ -532,13 +532,13 @@ function startMonthly(MP,MS,MC){
   const bar=r=>`<div class="pg"><i style="width:${Math.min(100,r||0).toFixed(1)}%"></i></div>`;
   // 목표 달성 카드: 기본 목표 = 전년 같은 달 매출 (tf로 고정값 지정 가능). GOAL_SET에 적힌 달은 그 값을 목표로 사용
   const GOAL_SET=GOALS;
-  const goal=(R,months,m,iRev,col,one,tf,un='원',ov)=>{const T=x=>ov&&ov[x]!=null?ov[x]:tf?tf(x):((R[yoyM(x)]||[])[iRev]||0);const c=R[m],tg=T(m),rate=tg?c[iRev]/tg*100:null;
+  const goal=(R,months,m,iRev,col,one,tf,un='원',ov,lb)=>{const T=x=>ov&&ov[x]!=null?ov[x]:tf?tf(x):((R[yoyM(x)]||[])[iRev]||0);const c=R[m],tg=T(m),rate=tg?c[iRev]/tg*100:null;
     const nm=nextM(m),nt=T(nm),df=nt-c[iRev];
     const [hex,soft]=col||(iRev===2?['#4A86E8','#dde8fb']:['#8A6FDB','#e7e1f8']),bg=iRev===2?'#f5f8fe':'#f8f6fd';
     const ring=r=>{const R0=30,L=2*Math.PI*R0,v=Math.max(0,Math.min(100,r||0));return`<svg viewBox="0 0 76 76" width="76" height="76" aria-hidden="true"><circle cx="38" cy="38" r="${R0}" fill="none" stroke="${soft}" stroke-width="8"/><circle cx="38" cy="38" r="${R0}" fill="none" stroke="${hex}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(L*v/100).toFixed(1)} ${L.toFixed(1)}" transform="rotate(-90 38 38)"/><text x="38" y="42" text-anchor="middle" font-size="${r>=100?13:15}" font-weight="800" fill="var(--fg)">${r==null?'-':r.toFixed(1)}<tspan font-size="9" font-weight="600">%</tspan></text></svg>`};
     const card=(ttl,sub,r,act,tgt)=>`<div class="gx">${ring(r)}<div class="gxb"><div class="gxt" style="color:${hex}">${ttl}${sub?` <span>${sub}</span>`:''}</div><div class="gxv"><b>${won(act)}</b><u>${un}</u></div></div><div class="gxr"><div class="l">목표</div><div class="v">${won(tgt)}<u>${un}</u></div><div class="gxs">${tgt>act?`${won(tgt-act)}${un} 남음`:'<em class="ok">달성</em>'}</div></div></div>`;
-    const cardN=`<div class="gx"><div class="gxb"><div class="gxt" style="color:${hex}">${+nm.slice(5)}월 목표</div><div class="gxv"><b>${won(nt)}</b><u>${un}</u></div></div><div class="gxr"><div class="l">${+m.slice(5)}월 실적 대비</div><div class="v">${df>=0?'+':'-'}${won(Math.abs(df))}<u>${un}</u></div><div class="gxs">${c[iRev]?(df>=0?'+':'-')+Math.abs(df/c[iRev]*100).toFixed(1)+'%':''}</div></div></div>`;
-    return`<div class="gxw${one?' gx1':''}">${card(+m.slice(5)+'월','',rate,c[iRev],tg)}${cardN}</div>`};
+    const cardN=`<div class="gx"><div class="gxb"><div class="gxt" style="color:${hex}">${+nm.slice(5)}월 ${lb&&lb.g||'목표'}</div><div class="gxv"><b>${won(nt)}</b><u>${un}</u></div></div><div class="gxr"><div class="l">${+m.slice(5)}월 실적 대비</div><div class="v">${df>=0?'+':'-'}${won(Math.abs(df))}<u>${un}</u></div><div class="gxs">${c[iRev]?(df>=0?'+':'-')+Math.abs(df/c[iRev]*100).toFixed(1)+'%':''}</div></div></div>`;
+    return`<div class="gxw${one?' gx1':''}">${card(+m.slice(5)+'월'+(lb&&lb.t||''),'',rate,c[iRev],tg)}${cardN}</div>`};
   // 월별 추이 막대 (전년 회색, 올해 사이트 색)
   const trend=(R,m,defs,hex,soft,off=0)=>{const yr=m.slice(0,4),py=String(+yr-1);
     return defs.map(([t,i,u,ty],ci)=>{const A=[],B=[];for(let k=1;k<=12;k++){const mm=('0'+k).slice(-2);const a=R[`${py}-${mm}`],b=R[`${yr}-${mm}`];A.push(a&&a[i]?a[i]:null);B.push(b&&b[i]!=null&&(b[i]||b.some(v=>v))?b[i]:null)}
@@ -573,7 +573,7 @@ function startMonthly(MP,MS,MC){
     const nt=M.note[m]||['',''];
     pane('mPpt',
       sec('전체 성과',`<div class="g4m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}</div>
-        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,2,null,null,null,'원',GOAL_SET.ppt)}<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 전년 같은 달 결제 금액)</div></div>`)+
+        <div class="gbig" style="margin-top:14px">${(()=>{const SR=M.sr||{},GP=GOAL_SET.ppt||{};if(m>='2026-10'){const MR={},tot=k=>(SR[k]||[]).reduce((s,r)=>s+(r[1]||0),0);Object.keys(M.raw).forEach(k=>{const r=[...M.raw[k]];r[10]=tot(k);MR[k]=r});const ov={};Object.keys(GP).forEach(k=>{if(k>='2026-10')ov[k]=GP[k]});const sub=x=>{const y=+x.slice(0,4),mo=+x.slice(5),a=[];for(let k=1;k<=4;k++){let yy=y,mm=mo-k;while(mm<1){mm+=12;yy--}const kk=yy+'-'+('0'+mm).slice(-2);if(kk>='2026-10'&&MR[kk]&&MR[kk][10])a.push(MR[kk][10])}return a.length?Math.ceil(a.reduce((s,v)=>s+v,0)/a.length):0};return goal(MR,M.months,m,10,['#4A86E8','#dde8fb'],null,sub,'명',ov,{t:' 검색 유입',g:'검색 유입 목표'})+'<div class="gnt">목표 기준: 검색 유입 = 구글·네이버 오가닉 + 네이버 모바일 + AI 검색 (총 사용자), 설정 시트 월간 목표</div>'}const ov2={};Object.keys(GP).forEach(k=>{if(k<'2026-10')ov2[k]=GP[k]});return goal(M.raw,M.months,m,2,null,null,null,'원',ov2)+'<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 전년 같은 달 결제 금액)</div>'})()}</div>`)+
       sec('업무 현황',planTbl(m,['예스폼 파워포인트'],1).replace('style="margin-top:14px"','')+planTbl(m,['예스폼 파워포인트']))+
       sec('월별 추이',`<div class="g2m">${trend(M.raw,m,[['방문자 수',0,''],['결제 금액',2,'만'],['광고비',3,'만'],['쇼핑몰 매출',6,'만']],'#4A86E8','#b7cff6')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
@@ -638,7 +638,7 @@ function startMonthly(MP,MS,MC){
     pane('mSm',
       sec('전체 성과',`<div class="g5m">${K.map(([l,i,u])=>card(l,won(c[i]),u,p&&pct(c[i],p[i]),y&&pct(c[i],y[i]))).join('')}${card('구글 애드센스',asv==null?'-':usd(asv),'',asv!=null&&asp?pct(asv,asp):null,asv!=null&&asy?pct(asv,asy):null)}</div>
         <div class="g5m" style="margin-top:14px">${mixCard(c)}${card('월정액 신규',won(c[9]||0),'건',p&&pct(c[9]||0,p[9]||0),y&&pct(c[9]||0,y[9]||0))}${card('월정액 연장',won(c[10]||0),'건',p&&pct(c[10]||0,p[10]||0),y&&pct(c[10]||0,y[10]||0))}${dmCard(c,p,y,'국내','#8A6FDB',11,12)}${dmCard(c,p,y,'해외','#D3C8F4',13,14)}</div>
-        <div class="gbig" style="margin-top:14px">${goal(M.raw,M.months,m,3,null,null,null,'원',GOAL_SET.sm)}<div class="gnt">목표 기준: 설정 시트 월간 목표 (비어 있으면 전년 같은 달 결제 금액)</div></div>`)+
+        <div class="gbig" style="margin-top:14px">${(()=>{const MR={};Object.keys(M.raw).forEach(k=>{const r=[...M.raw[k]];r[21]=(r[9]||0)+(r[10]||0);MR[k]=r});const sub=x=>{const y=+x.slice(0,4),mo=+x.slice(5),a=[];for(let k=1;k<=4;k++){let yy=y,mm=mo-k;while(mm<1){mm+=12;yy--}const q=MR[`${yy}-${('0'+mm).slice(-2)}`];if(q&&q[21])a.push(q[21])}return a.length?Math.ceil(a.reduce((s,v)=>s+v,0)/a.length):0};return goal(MR,M.months,m,21,null,null,sub,'건',GOAL_SET.sm,{t:' 월정액수',g:'월정액 목표'})})()}<div class="gnt">목표 기준: 월정액 결제 건수(신규+연장), 설정 시트 월간 목표 (비어 있으면 직전 4개월 평균)</div></div>`)+
       sec('업무 현황',planTbl(m,['슬라이드멤버스'],1).replace('style="margin-top:14px"','')+planTbl(m,['슬라이드멤버스']))+
       sec('월별 추이',`<div class="g2m">${trend(Object.fromEntries([...new Set([...Object.keys(M.raw),...Object.keys(AS)])].map(k=>{const r=[...(M.raw[k]||[])];r[20]=AS[k]==null?null:+AS[k];return[k,r]})),m,[['방문자 수',0,''],['결제수',2,''],['광고비',4,'만','line'],['구글 애드센스',20,'$','line'],['결제 금액',3,'만'],['실매출',5,'만']],'#8A6FDB','#D3C8F4')}</div>`)+
       sec('유입 분석',two(tcard('유입 채널별 상위 5',gaT(ga.ch)),tcard('유입 매체별 상위 5',gaT(ga.md))))+
