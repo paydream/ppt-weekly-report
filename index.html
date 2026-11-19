@@ -1036,7 +1036,7 @@ function startRelist(D){
   const sum=f=>F.reduce((a,x)=>a+f(x),0);
   const sec=(t,body,sub='')=>`<section class="sec"><div class="sec-head"><h2>${t}</h2>${sub}</div>${body}</section>`;
   function chart(){const B=[...pre,...post],mx=Math.max(1,...B.map(x=>x.v||0));
-    const W=1100,H=276,T=50,Bm=48,L=10,R=10,gw=(W-L-R)/B.length,bw=Math.min(84,gw*.46),yy=v=>T+(1-v/mx)*(H-T-Bm);
+    const W=1100,H=276,T=50,Bm=48,L=10,R=10,gw=(W-L-R)/B.length,bw=Math.min(42,gw*.23),yy=v=>T+(1-v/mx)*(H-T-Bm);
     let g=`<line x1="${L}" x2="${W-R}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--grid)"/>`;
     const xs=L+gw*pre.length;g+=`<line x1="${xs}" x2="${xs}" y1="12" y2="${yy(0)}" stroke="#8A6FDB" stroke-dasharray="4 4"/><text x="${xs-8}" y="16" text-anchor="end" font-size="11.5" font-weight="700" fill="#8A6FDB">재등록 완료 ${md(rel)}</text>`;
     B.forEach((x,i)=>{const cx=L+gw*i+gw/2,isPre=i<pre.length,on=!isPre&&i-pre.length===k,dn=isPre?0:days(x);
@@ -1045,7 +1045,7 @@ function startRelist(D){
         g+=`<rect x="${cx-bw/2}" y="${yy(o)}" width="${bw}" height="${yy(0)-yy(o)}" rx="3" fill="${isPre?'#b8bfc9':'#8A6FDB'}"><title>검색 유입(Organic Search) ${won(o)}</title></rect>`;
         g+=`<text x="${cx}" y="${yy(x.v)-8}" text-anchor="middle" font-size="${on?13:12}" font-weight="${on?700:600}" fill="${on||!isPre?'var(--fg)':'var(--sub)'}">${won(x.v)}${!isPre&&dn<30?` (${dn}일)`:''}</text>`;
         if(o)g+=`<text x="${cx}" y="${yy(o)+15}" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">${won(o)}</text>`;
-      }else{g+=`<rect x="${cx-bw/2}" y="${T+10}" width="${bw}" height="${yy(0)-T-10}" rx="3" fill="none" stroke="#cfd4dc" stroke-dasharray="4 4"/><text x="${cx}" y="${(T+yy(0))/2+4}" text-anchor="middle" font-size="12" fill="var(--mute)">집계 전</text>`}
+      }else{g+=`<rect x="${cx-bw/2}" y="${T+10}" width="${bw}" height="${yy(0)-T-10}" rx="3" fill="none" stroke="#cfd4dc" stroke-dasharray="4 4"/><text x="${cx}" y="${(T+yy(0))/2+4}" text-anchor="middle" font-size="10.5" fill="var(--mute)">집계 전</text>`}
       g+=`<text x="${cx}" y="${H-26}" text-anchor="middle" font-size="12" fill="${on?'var(--fg)':'var(--sub)'}" font-weight="${on?700:500}">${md(x.s)}~${md(x.e)}</text><text x="${cx}" y="${H-9}" text-anchor="middle" font-size="11" fill="${on?'#8A6FDB':'var(--mute)'}" font-weight="${on?700:400}">${isPre?'재등록 전':'재등록 후 '+(i-pre.length+1)+'개월'}</text>`});
     return`<article class="card"><div class="ch"><h3>기간별 조회수</h3><div class="lg"><span><i style="background:#8A6FDB"></i>검색 유입 (Organic Search)</span><span><i style="background:#D3C8F4"></i>그 외 유입</span><span><i style="background:#b8bfc9"></i>재등록 전</span></div></div><div style="padding:12px 14px 8px"><svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block" role="img" aria-label="재등록 전후 기간별 조회수">${g}</svg></div></article>`}
   function chTable(){const B=[...pre,...post],cell=(x,v,f=won)=>{const ok=x.v!=null&&(x.g.startsWith('전')||days(x)>0);return ok&&v!=null?f(v):'<span class="na">-</span>'};
